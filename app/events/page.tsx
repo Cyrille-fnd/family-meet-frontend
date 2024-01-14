@@ -20,7 +20,7 @@ async function getUserAccountData() {
         },
     };
 
-    const response = await fetch('http://localhost:8080/v1/api/users/current', requestOptions)
+    const response = await fetch(process.env.API_URL + '/v1/api/users/current', requestOptions)
 
     if (!response.ok) {
         return {isLogged: false}
@@ -47,7 +47,7 @@ async function getEvents() {
         },
     };
 
-    const response = await fetch('http://localhost:8080/v1/api/events', requestOptions)
+    const response = await fetch(process.env.API_URL + '/v1/api/events', requestOptions)
 
     return response.json()
 }
@@ -55,7 +55,7 @@ async function getEvents() {
 export default async function Home() {
     const {isLogged} = await getUserAccountData()
 
-    if (!isLogged) redirect('http://localhost:3000')
+    if (!isLogged) redirect(process.env.HOST_URL)
 
     const events = await getEvents()
 
