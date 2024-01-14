@@ -32,7 +32,7 @@ async function getUserAccountData() {
 export default async function Home() {
   const {isLogged} = await getUserAccountData()
 
-  if (isLogged) redirect(process.env.HOST_URL + '/account', "push")
+  if (isLogged) redirect('/account', "push")
 
   return (
       <HomeView
