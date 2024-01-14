@@ -5,12 +5,12 @@ import Image from "next/image";
 const EventInfos: React.FC = async ({events}) => {
 
     return (<>
-        {events.map((event) =>
-            <div className={s.superContainer}>
+        {events.map((event: any) =>
+            <div className={s.superContainer} key={event.id}>
                 <p>
                     {event.date}
                 </p>
-                <div className={s.container}>
+                <div className={s.container} >
                     <div className={s.pictureContainer}>
                         <Image
                             priority={true}
