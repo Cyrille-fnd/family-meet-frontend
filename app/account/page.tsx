@@ -19,7 +19,7 @@ async function getUserAccountData(id) {
         },
     };
 
-    const response = await fetch('http://localhost:8080/v1/api/users'+ id, requestOptions)
+    const response = await fetch(process.env.API_URL + '/v1/api/users'+ id, requestOptions)
 
     if (!response.ok) {
         return {isLogged: false}
@@ -33,7 +33,7 @@ async function getUserAccountData(id) {
 export default async function Account({ params }: { params: { id: string } }) {
     const {isLogged, id, email, firstname} = await getUserAccountData(params.id)
 
-    if (!isLogged) redirect('http://localhost:3000', "push")
+    if (!isLogged) redirect(process.env.HOST_URL, "push")
 
     return (
         <AccountView

@@ -18,7 +18,7 @@ async function getUserAccountData() {
     },
   };
 
-  const response = await fetch('http://localhost:8080/v1/api/users', requestOptions)
+  const response = await fetch(process.env.API_URL + '/v1/api/users', requestOptions)
 
   if (!response.ok) {
     return {isLogged: false}
@@ -32,7 +32,7 @@ async function getUserAccountData() {
 export default async function Home() {
   const {isLogged} = await getUserAccountData()
 
-  if (isLogged) redirect('http://localhost:3000/account', "push")
+  if (isLogged) redirect(process.env.HOST_URL + '/account', "push")
 
   return (
       <HomeView
