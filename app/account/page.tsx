@@ -3,7 +3,7 @@ import {cookies} from "next/headers";
 import AccountView from "@/components/accountView/AccountView";
 import {redirect} from "next/navigation";
 
-async function getUserAccountData(id) {
+async function getUserAccountData(id: string) {
     const cookieStore = cookies()
     const token = cookieStore.get("x-auth-token")
 
