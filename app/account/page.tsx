@@ -33,7 +33,7 @@ async function getUserAccountData(id) {
 export default async function Account({ params }: { params: { id: string } }) {
     const {isLogged, id, email, firstname} = await getUserAccountData(params.id)
 
-    if (!isLogged) redirect(process.env.HOST_URL, "push")
+    if (!isLogged) redirect('/', "push")
 
     return (
         <AccountView

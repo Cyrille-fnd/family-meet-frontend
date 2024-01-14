@@ -55,7 +55,7 @@ async function getEvents() {
 export default async function Home() {
     const {isLogged} = await getUserAccountData()
 
-    if (!isLogged) redirect(process.env.HOST_URL)
+    if (!isLogged) redirect('/')
 
     const events = await getEvents()
 
