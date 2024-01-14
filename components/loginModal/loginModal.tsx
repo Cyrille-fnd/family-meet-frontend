@@ -33,7 +33,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
         };
 
         // fetch('http://hello-world-backend.eu-west-3.elasticbeanstalk.com/helloworld', requestOptions
-        fetch('http://localhost:8080/v1/api/login_check', requestOptions
+        fetch(process.env.API_URL + '/v1/api/login_check', requestOptions
         ).then(async response => {
             const {token} = await response.json();
             //const token = await response.headers.get("x-auth-token");
@@ -41,7 +41,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
             if (!token) return
             setCookie('x-auth-token', token, 1)
 
-            await router.push('http://localhost:3000/events')
+            await router.push('/events')
         })
     }
 
