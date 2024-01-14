@@ -1,0 +1,26 @@
+.container {
+    margin-left: 100px;
+    padding-right: 20px;
+    width: 265px;
+    height: 100%;
+    border-right: solid;
+    border-right-width: thin;
+    border-right-color: #F1F1F1;
+}
+
+.li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+    font-size: x-large;
+}
+
+.li:hover {
+    background-color: #E6E6E6;
+    border-radius: 25px;
+}
+
+.textli {
+    margin-left: 20px;
+}

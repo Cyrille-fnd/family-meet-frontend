@@ -1,0 +1,109 @@
+.registerButton {
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    border-radius: 100px;
+    background-color: #bd77ec;
+    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
+    width: 20rem;
+
+}
+
+.registerButton:hover {
+    background-color: #ae5aea;
+}
+
+.registerButton:active {
+    box-shadow:
+            inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+            inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.loginButton {
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    border-radius: 100px;
+    background-color: #bd77ec;
+    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
+    width: 20rem;
+
+}
+
+.loginButton:hover {
+    background-color: #ae5aea;
+}
+
+.loginButton:active {
+    box-shadow:
+            inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+            inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.blocksContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 80%;
+}
+
+.imageContainer {
+    display: none;
+
+    @screen lg {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 6rem;
+    }
+}
+
+.ctaContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30rem;
+}
+
+.title {
+    font-family: "Verdana";
+    font-size: xxx-large;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.registerText {
+    font-family: "Verdana";
+    font-size: large;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.conditionsText {
+    font-size: x-small;
+    width: 20rem;
+    margin-top: 5px;
+}
+
+.loginText {
+    font-family: "Verdana";
+    font-size: large;
+    font-weight: bold;
+    margin-top: 60px;
+    margin-bottom: 15px;
+}
