@@ -20,7 +20,7 @@ async function getUserAccountData() {
         },
     };
 
-    const response = await fetch(process.env.API_URL + '/v1/api/users/current', requestOptions)
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/users/current', requestOptions)
 
     if (!response.ok) {
         return {isLogged: false}
@@ -47,7 +47,7 @@ async function getEvents() {
         },
     };
 
-    const response = await fetch(process.env.API_URL + '/v1/api/events', requestOptions)
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/events', requestOptions)
 
     return response.json()
 }
