@@ -19,7 +19,7 @@ async function getUserAccountData(id: string) {
         },
     };
 
-    const response = await fetch(process.env.API_URL + '/v1/api/users'+ id, requestOptions)
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/users'+ id, requestOptions)
 
     if (!response.ok) {
         return {isLogged: false}

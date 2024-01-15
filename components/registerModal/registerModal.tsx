@@ -26,16 +26,21 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                firstname: formData.get('firstname'),
                 email: formData.get('email'),
                 password: formData.get('password'),
+                sex: formData.get('sex'),
+                firstname: formData.get('firstname'),
+                lastname: formData.get('lastname'),
+                bio: formData.get('bio'),
+                birthday: formData.get('birthday'),
+                city: formData.get('city'),
+                pictureUrl: null,
             })
         };
 
-        // fetch('http://hello-world-backend.eu-west-3.elasticbeanstalk.com/helloworld', requestOptions
-        fetch(process.env.API_URL + '/v1/api/users', requestOptions
+        fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/users', requestOptions
         ).then(async response => {
-            const token = await response.headers.get("x-auth-token");
+            const {token} = await response.json();
 
             if (!token) return
 
@@ -59,9 +64,14 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                 <div className={s.modalContent}>
                     <h1 className={s.formTitle}>Créer votre compte</h1>
                     <form className={s.modalForm} onSubmit={handleSubmit} id="registerForm">
-                        <Input name="firstname" placeholder="  Prénom"/>
                         <Input name="email" placeholder="  Email"/>
                         <Input name="password" type="password" placeholder="  Password"/>
+                        <Input name="sex" placeholder="  Sexe"/>
+                        <Input name="firstname" placeholder="  Prénom"/>
+                        <Input name="lastname" placeholder="  Nom de famille"/>
+                        <Input name="bio" placeholder="  Bio"/>
+                        <Input name="birthday" type="date" placeholder=" Date de naissance"/>
+                        <Input name="city" placeholder="  Ville"/>
                     </form>
                     <Button type="submit" form="registerForm" value="Créer mon compte" />
 
