@@ -2,7 +2,36 @@ import React, {useState} from "react";
 import s from "./event.module.css"
 import Image from "next/image";
 
-const EventInfos: React.FC = async ({events}) => {
+interface EventInfosProps {
+    events: Event[]
+}
+
+interface Event {
+    id: string
+    title: string
+    location: string
+    date: string
+    category: string
+    createdAt: string
+    participantMax: number
+    guests: User[]
+    host: User
+}
+
+interface User {
+    id: string
+    email: string
+    sex: string
+    firstname: string
+    lastname: string
+    bio: string
+    birthday: string
+    city: string
+    pictureUrl: string| null
+    createdAt: string
+}
+
+const EventInfos: React.FC<EventInfosProps> = async ({events}) => {
 
     return (<>
         {events.map((event: any) =>

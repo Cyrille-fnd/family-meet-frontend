@@ -35,8 +35,6 @@ export default async function Home() {
   if (isLogged) redirect('/account')
 
   return (
-      <HomeView
-          isLogged={isLogged}
-      />
+      <HomeView />
   )
 }
