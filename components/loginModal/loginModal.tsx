@@ -3,6 +3,7 @@ import s from "./loginModal.module.css"
 import Input from "@/components/form/input/Input";
 import Button from "@/components/form/button/button";
 import {useRouter} from "next/navigation";
+import Image from "next/image";
 
 export interface LoginModalProps {
     isOpen: boolean,
@@ -59,13 +60,19 @@ const LoginModal: React.FC<LoginModalProps> = ({
                 <div className={s.modalContent}>
                     <h1 className={s.formTitle}>Connectez-vous</h1>
                     <form className={s.modalForm} onSubmit={handleSubmit} id="loginForm">
-                        <Input name="email" placeholder="  Email"/>
-                        <Input name="password" type="password" placeholder="  Password"/>
+                        <Input name="email" placeholder="Email"/>
+                        <Input name="password" type="password" placeholder="Password"/>
                     </form>
                     <Button type="submit" form="loginForm" value="Me connecter" />
 
                     <button className={s.closeModal} onClick={close} >
-                        X
+                        <Image
+                                priority={true}
+                                src={"/icon-cancel-cross.png"}
+                                width={25}
+                                height={20}
+                                alt={'cancel-icon'}
+                            />
                     </button>
                 </div>
             </div>
