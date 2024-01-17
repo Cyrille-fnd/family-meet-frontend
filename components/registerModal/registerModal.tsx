@@ -3,6 +3,7 @@ import s from "./registerModal.module.css"
 import Input from "@/components/form/input/Input";
 import Button from "@/components/form/button/button";
 import {useRouter} from "next/navigation";
+import Image from "next/image";
 
 
 export interface RegisterModalProps {
@@ -64,19 +65,25 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                 <div className={s.modalContent}>
                     <h1 className={s.formTitle}>Créer votre compte</h1>
                     <form className={s.modalForm} onSubmit={handleSubmit} id="registerForm">
-                        <Input name="email" placeholder="  Email"/>
-                        <Input name="password" type="password" placeholder="  Password"/>
-                        <Input name="sex" placeholder="  Sexe"/>
-                        <Input name="firstname" placeholder="  Prénom"/>
-                        <Input name="lastname" placeholder="  Nom de famille"/>
-                        <Input name="bio" placeholder="  Bio"/>
-                        <Input name="birthday" type="date" placeholder=" Date de naissance"/>
-                        <Input name="city" placeholder="  Ville"/>
+                        <Input name="email" placeholder="Email"/>
+                        <Input name="password" type="password" placeholder="Mot de passe"/>
+                        <Input name="sex" placeholder="Sexe"/>
+                        <Input name="firstname" placeholder="Prénom"/>
+                        <Input name="lastname" placeholder="Nom"/>
+                        <Input name="bio" placeholder="Bio"/>
+                        <Input name="birthday" type="date"/>
+                        <Input name="city" placeholder="Ville"/>
                     </form>
                     <Button type="submit" form="registerForm" value="Créer mon compte" />
 
-                    <button className={s.closeModal} onClick={close} >
-                        X
+                    <button className={s.closeModal} onClick={close}>
+                        <Image
+                            priority={true}
+                            src={"/icon-cancel-cross.png"}
+                            width={25}
+                            height={20}
+                            alt={'cancel-icon'}
+                        />
                     </button>
                 </div>
             </div>
