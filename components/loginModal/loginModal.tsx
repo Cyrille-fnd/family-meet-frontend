@@ -34,7 +34,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
         };
 
         // fetch('http://hello-world-backend.eu-west-3.elasticbeanstalk.com/helloworld', requestOptions
-        fetch(process.env.API_URL + '/v1/api/login_check', requestOptions
+        fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/login_check', requestOptions
         ).then(async response => {
             const {token} = await response.json();
             //const token = await response.headers.get("x-auth-token");
