@@ -35,7 +35,7 @@ interface User {
 }
 
 const EventsView: React.FC<EventsViewProps> = async ({events}) => {
-    return (<>
+    return (
         <div className={s.container}>
             <div className={s.sideContainer}>
                 <SideMenu/>
@@ -43,10 +43,13 @@ const EventsView: React.FC<EventsViewProps> = async ({events}) => {
             </div>
             <div className={s.listContainer}>
                 <h1>Événements à venir:</h1>
-                <EventsList events={events}/>
+                {events.length > 0 ?
+                    <EventsList events={events}/>:
+                    <p> Aucun événement à venir</p>
+                }
             </div>
         </div>
-    </>)
+    )
 }
 
 export default EventsView
