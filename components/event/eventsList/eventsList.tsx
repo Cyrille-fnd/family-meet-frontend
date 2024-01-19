@@ -1,7 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import s from "./eventsList.module.css"
-import Image from "next/image";
-import Separator from "../../common/separator/separator";
 import EventCard from "../eventCard/eventCard";
 
 interface EventInfosProps {
@@ -35,12 +33,14 @@ interface User {
 
 const EventsList: React.FC<EventInfosProps> = async ({events}) => {
 
+
     return (<>
-        {events.map((event: any) =>
+        {events.map((event: any, index: number, events: any) =>
             <div className={s.superContainer} key={event.id}>
-                <p>
-                    {event.date}
-                </p>
+                {typeof events[index - 1] === 'undefined' || new Date(event.date).getDate() !== new Date(events[index - 1].date).getDate() ? 
+                <p>{new Date(event.date).toLocaleDateString('fr-fr', { weekday:"long", year:"numeric", month:"short", day:"numeric"}).toUpperCase()}
+                </p>: null
+                }
                 <EventCard event={event}/>
             </div>)}
     </>)
