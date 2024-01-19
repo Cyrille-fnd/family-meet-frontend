@@ -11,23 +11,17 @@
     width: 100%;
 }
 
-.contentContainer h5 {
+.contentContainer h3 {
     color: #bd77ec;
     font-weight: bold;
     margin-bottom: 10px;
-}
-
-.pictureContainer {
-    width: 150px;
-    height: 100%;
-    border-radius: 50%;
-    overflow: 'hidden'
+    font-size: large;
 }
 
 .textContainer {
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
+    margin-left: 15px;
 }
 
 .dateContainer {
