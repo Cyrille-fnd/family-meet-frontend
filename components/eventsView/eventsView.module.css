@@ -2,6 +2,27 @@
     display: flex;
     flex-direction: row;
     height: 100vh;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.container Separator {
+    height: 100%;
+}
+
+.sideContainer {
+
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.sideContainer Button {
+    margin-top: 20px;
+    width: 250px;
+    height: 50px;
 }
 
 .listContainer {
@@ -9,5 +30,11 @@
     flex-direction: column;
     margin-top: 35px;
     margin-left: 40px;
-    width: 66%;
+    width: 50%;
 }
+
+.listContainer h1 {
+    font-size: xx-large;
+    font-weight: bold;
+}
+
