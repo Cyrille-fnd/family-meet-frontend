@@ -3,7 +3,7 @@ import {cookies} from "next/headers";
 import AccountView from "@/components/accountView/AccountView";
 import {redirect} from "next/navigation";
 
-async function getUserAccountData(id: string) {
+async function getUserAccountData() {
     const cookieStore = cookies()
     const token = cookieStore.get("x-auth-token")
 
@@ -19,7 +19,7 @@ async function getUserAccountData(id: string) {
         },
     };
 
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/users'+ id, requestOptions)
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/users/current', requestOptions)
 
     if (!response.ok) {
         return {isLogged: false}
@@ -31,15 +31,13 @@ async function getUserAccountData(id: string) {
 }
 
 export default async function Account({ params }: { params: { id: string } }) {
-    const {isLogged, id, email, firstname} = await getUserAccountData(params.id)
+    const {isLogged, ...user} = await getUserAccountData()
 
     if (!isLogged) redirect('/')
 
     return (
         <AccountView
-            id={id}
-            email={email}
-            firstname={firstname}
+            user={user}
         />
     )
 }
