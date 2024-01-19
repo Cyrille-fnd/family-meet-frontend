@@ -27,7 +27,7 @@ const SideMenu: React.FC<SideMenuProps> = async ({currentPage}) => {
                         height={20}
                         alt={'home-icon'}
                     />
-                    {currentPage === 'Home' ? <a className={s.boldTextli} >Accueil</a> : <a className={s.textli} href="#" >Accueil</a>}
+                    {currentPage === 'Home' ? <a className={s.boldTextli} >Accueil</a> : <a className={s.textli} href="/events" >Accueil</a>}
                 </li>
                 <li className={s.li}>
                     <Image
@@ -37,7 +37,7 @@ const SideMenu: React.FC<SideMenuProps> = async ({currentPage}) => {
                         height={20}
                         alt={'user-icon'}
                     />
-                    {currentPage === 'Profile' ? <a className={s.boldTextli} >Mon profil</a> : <a className={s.textli} href="#" >Mon profil</a>}
+                    {currentPage === 'Profile' ? <a className={s.boldTextli} >Mon profil</a> : <a className={s.textli} href="/account" >Mon profil</a>}
                 </li>
                 <li className={s.li}>
                     <Image
