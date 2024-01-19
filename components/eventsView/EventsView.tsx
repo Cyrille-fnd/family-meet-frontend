@@ -38,7 +38,7 @@ const EventsView: React.FC<EventsViewProps> = async ({events}) => {
     return (
         <div className={s.container}>
             <div className={s.sideContainer}>
-                <SideMenu/>
+                <SideMenu currentPage="Home"/>
                 <Button type="button" value="Créer un évènement"/>
             </div>
             <div className={s.listContainer}>

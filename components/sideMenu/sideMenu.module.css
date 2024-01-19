@@ -20,3 +20,8 @@
 .textli {
     margin-left: 20px;
 }
+
+.boldTextli {
+    margin-left: 20px;
+    font-weight: bold;
+}

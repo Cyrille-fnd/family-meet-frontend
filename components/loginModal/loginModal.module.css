@@ -46,6 +46,10 @@ body.active-modal {
     width: 100%;
 }
 
+.modalForm Button {
+    margin-top: 15px;
+}
+
 .closeModal {
     position: absolute;
     top: 10px;

@@ -73,8 +73,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                         <Input name="bio" placeholder="Bio"/>
                         <Input name="birthday" type="date"/>
                         <Input name="city" placeholder="Ville"/>
+                        <Button type="submit" form="registerForm" value="Créer mon compte" />
                     </form>
-                    <Button type="submit" form="registerForm" value="Créer mon compte" />
 
                     <button className={s.closeModal} onClick={close}>
                         <Image

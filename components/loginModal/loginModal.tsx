@@ -60,8 +60,8 @@ const LoginModal: React.FC<LoginModalProps> = ({
                     <form className={s.modalForm} onSubmit={handleSubmit} id="loginForm">
                         <Input name="email" placeholder="Email"/>
                         <Input name="password" type="password" placeholder="Password"/>
+                        <Button type="submit" form="loginForm" value="Me connecter" />
                     </form>
-                    <Button type="submit" form="loginForm" value="Me connecter" />
 
                     <button className={s.closeModal} onClick={close} >
                         <Image
