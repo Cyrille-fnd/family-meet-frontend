@@ -1,0 +1,54 @@
+.container {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.contentContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.contentContainer h5 {
+    color: #bd77ec;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.pictureContainer {
+    width: 150px;
+    height: 100%;
+    border-radius: 50%;
+    overflow: 'hidden'
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.dateContainer {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.dateContainer h6 {
+    margin-left: 5px;
+}
+
+.locationContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.locationContainer h6 {
+    margin-left: 5px;
+}
+
+.participantContainer {
+    margin-top: 15px;
+}

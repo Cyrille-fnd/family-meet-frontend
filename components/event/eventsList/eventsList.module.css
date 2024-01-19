@@ -1,0 +1,10 @@
+.superContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.superContainer p {
+    color: #838383;
+    font-weight: bold;
+    margin-top: 25px;
+}

@@ -2,7 +2,8 @@ import React from "react";
 import s from "./eventsView.module.css"
 import SideMenu from "@/components/sideMenu/sideMenu";
 import Button from "@/components/form/button/button";
-import EventInfos from "@/components/event/event";
+import EventsList from "@/components/event/eventsList/eventsList";
+import Separator from "../common/separator/separator";
 
 interface EventsViewProps {
     events: Event[]
@@ -36,12 +37,14 @@ interface User {
 const EventsView: React.FC<EventsViewProps> = async ({events}) => {
     return (<>
         <div className={s.container}>
-            <SideMenu/>
-            <div className={s.listContainer}>
+            <div className={s.sideContainer}>
+                <SideMenu/>
                 <Button type="button" value="Créer un évènement"/>
-                <EventInfos events={events}/>
             </div>
-
+            <div className={s.listContainer}>
+                <h1>Événements à venir:</h1>
+                <EventsList events={events}/>
+            </div>
         </div>
     </>)
 }
