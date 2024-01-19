@@ -39,22 +39,23 @@ const EventCard: React.FC<EventCardProps> = async ({event}) => {
             <div className={s.contentContainer}>
                 <div className={s.pictureContainer}>
                     <Image
-                        priority={true}
+                        priority={false}
                         src={"/icon-fete.jpg"}
-                        width={160}
-                        height={100}
+                        width={150}
+                        height={8}
                         alt={'family-logo'}
+                        className="rounded-[10%]"
                     />
                 </div>
                 <div className={s.textContainer}>
-                    <h5>{event.title}</h5>
+                    <h3>{event.title}</h3>
 
                     <div className={s.dateContainer}>
                         <Image
                             priority={true}
                             src={"/icon-horloge.png"}
-                            width={15}
-                            height={10}
+                            width={20}
+                            height={20}
                             alt={'family-logo'}
                         />
                         <h6>
