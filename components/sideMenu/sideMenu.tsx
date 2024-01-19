@@ -2,7 +2,11 @@ import React from "react";
 import s from "./sideMenu.module.css"
 import Image from "next/image";
 
-const SideMenu: React.FC = async () => {
+interface SideMenuProps {
+    currentPage: 'Home'|'Profile'|'My events'|'Messages'|'Members'
+}
+
+const SideMenu: React.FC<SideMenuProps> = async ({currentPage}) => {
     return (<>
         <div className={s.container}>
             <ul>
@@ -23,7 +27,7 @@ const SideMenu: React.FC = async () => {
                         height={20}
                         alt={'home-icon'}
                     />
-                    <a className={s.textli} href="#">Accueil</a>
+                    {currentPage === 'Home' ? <a className={s.boldTextli} >Accueil</a> : <a className={s.textli} href="#" >Accueil</a>}
                 </li>
                 <li className={s.li}>
                     <Image
@@ -33,7 +37,7 @@ const SideMenu: React.FC = async () => {
                         height={20}
                         alt={'user-icon'}
                     />
-                    <a className={s.textli} href="#">Mon profil</a>
+                    {currentPage === 'Profile' ? <a className={s.boldTextli} >Mon profil</a> : <a className={s.textli} href="#" >Mon profil</a>}
                 </li>
                 <li className={s.li}>
                     <Image
@@ -43,7 +47,7 @@ const SideMenu: React.FC = async () => {
                         height={20}
                         alt={'icon-calendar'}
                     />
-                    <a className={s.textli} href="#">Mes sorties</a>
+                    {currentPage === 'My events' ? <a className={s.boldTextli} >Mes sorties</a> : <a className={s.textli} href="#" >Mes sorties</a>}
                 </li>
                 <li className={s.li}>
                     <Image
@@ -53,7 +57,7 @@ const SideMenu: React.FC = async () => {
                         height={20}
                         alt={'messages-icon'}
                     />
-                    <a className={s.textli} href="#">Mes messages</a>
+                    {currentPage === 'Messages' ? <a className={s.boldTextli} >Mes messages</a> : <a className={s.textli} href="#" >Mes messages</a>}
                 </li>
                 <li className={s.li}>
                     <Image
@@ -63,7 +67,7 @@ const SideMenu: React.FC = async () => {
                         height={20}
                         alt={'members-icon'}
                     />
-                    <a className={s.textli} href="#">Membres</a>
+                    {currentPage === 'Members' ? <a className={s.boldTextli} >Membres</a> : <a className={s.textli} href="#" >Membres</a>}
                 </li>
             </ul>
         </div>
