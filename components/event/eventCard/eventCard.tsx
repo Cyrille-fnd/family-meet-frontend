@@ -58,7 +58,7 @@ const EventCard: React.FC<EventCardProps> = async ({event}) => {
                             alt={'family-logo'}
                         />
                         <h6>
-                            {event.date}
+                            {new Date(event.date).toLocaleDateString('fr-FR', { weekday:"long", month:"short", day:"numeric", hour:"numeric", minute:"numeric"})}
                         </h6>
                     </div>
 
