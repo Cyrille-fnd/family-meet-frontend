@@ -47,7 +47,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
 
             setCookie('x-auth-token', token, 1)
 
-            await router.push('/account')
+            await router.push('/events')
         })
     }
 

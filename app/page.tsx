@@ -18,7 +18,7 @@ async function getUserAccountData() {
     },
   };
 
-  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/users', requestOptions)
+  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/users/current', requestOptions)
 
   if (!response.ok) {
     return {isLogged: false}
@@ -32,7 +32,7 @@ async function getUserAccountData() {
 export default async function Home() {
   const {isLogged} = await getUserAccountData()
 
-  if (isLogged) redirect('/account')
+  if (isLogged) redirect('/events')
 
   return (
       <HomeView />
