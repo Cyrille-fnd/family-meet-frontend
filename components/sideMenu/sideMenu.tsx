@@ -6,7 +6,7 @@ interface SideMenuProps {
     currentPage: 'Home'|'Profile'|'My events'|'Messages'|'Members'
 }
 
-const SideMenu: React.FC<SideMenuProps> = async ({currentPage}) => {
+const SideMenu: React.FC<SideMenuProps> = ({currentPage}) => {
     return (<>
         <div className={s.container}>
             <ul>

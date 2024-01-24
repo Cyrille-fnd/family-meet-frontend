@@ -40,7 +40,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
             if (!token) return
             setCookie('x-auth-token', token, 1)
 
-            await router.push('/events')
+            router.push('/events')
         })
     }
 
