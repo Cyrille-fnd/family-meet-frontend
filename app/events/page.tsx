@@ -2,7 +2,6 @@ import React from "react";
 import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
 import EventsView from "@/components/eventsView/EventsView";
-import { RedirectType } from "next/dist/client/components/redirect";
 
 async function getUserAccountData() {
     const cookieStore = cookies()
@@ -53,13 +52,18 @@ async function getEvents() {
 }
 
 export default async function Home() {
-    const {isLogged} = await getUserAccountData()
+    const user = await getUserAccountData()
 
-    if (!isLogged) redirect('/')
+    if (!user.isLogged) redirect('/')
+
+    const cookieStore = cookies()
+    const token = cookieStore.get("x-auth-token")
+
+    if (!token) redirect('/')
 
     const events = await getEvents()
 
     return (
-        <EventsView events={events} />
+        <EventsView events={events} user={user} token={token.value} />
     )
 }

@@ -5,7 +5,6 @@ import Button from "@/components/form/button/button";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
 
-
 export interface RegisterModalProps {
     isOpen: boolean
     close: any

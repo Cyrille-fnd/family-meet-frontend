@@ -31,9 +31,10 @@ interface User {
     createdAt: string
 }
 
-const EventsList: React.FC<EventInfosProps> = async ({events}) => {
-
-
+const EventsList: React.FC<EventInfosProps> = ({events}) => {
+    events.sort((firstEvent,secondEvent) => {
+        return new Date(firstEvent.date).getTime() - new Date(secondEvent.date).getTime()
+    })
     return (<>
         {events.map((event: any, index: number, events: any) =>
             <div className={s.superContainer} key={event.id}>

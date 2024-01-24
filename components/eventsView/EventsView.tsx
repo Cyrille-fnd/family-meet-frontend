@@ -1,12 +1,16 @@
-import React from "react";
+'use client'
+import * as React from 'react';
+import { useState } from "react";
 import s from "./eventsView.module.css"
 import SideMenu from "@/components/sideMenu/sideMenu";
 import Button from "@/components/form/button/button";
 import EventsList from "@/components/event/eventsList/eventsList";
-import Separator from "../common/separator/separator";
+import EventAddModal from "@/components/eventAddModal/eventAddModal";
 
 interface EventsViewProps {
     events: Event[]
+    user: User
+    token: string
 }
 
 interface Event {
@@ -34,12 +38,15 @@ interface User {
     createdAt: string
 }
 
-const EventsView: React.FC<EventsViewProps> = async ({events}) => {
+const EventsView: React.FC<EventsViewProps> = ({events, user, token}) => {
+    const [isEventAddModalOpen, setEventAddModalOpen] = useState(false)
+
     return (
         <div className={s.container}>
+            <EventAddModal user={user} token={token} isOpen={isEventAddModalOpen} close={() => setEventAddModalOpen(false)}/>
             <div className={s.sideContainer}>
                 <SideMenu currentPage="Home"/>
-                <Button type="button" value="Créer un évènement"/>
+                <Button type="button" value="Créer un évènement" onclick={() => setEventAddModalOpen(true)}/>
             </div>
             <div className={s.listContainer}>
                 <h1>Événements à venir:</h1>

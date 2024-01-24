@@ -32,7 +32,7 @@ interface User {
     createdAt: string
 }
 
-const EventCard: React.FC<EventCardProps> = async ({event}) => {
+const EventCard: React.FC<EventCardProps> = ({event}) => {
     return (
         <a href="#" className={s.container} >
             <Separator />
