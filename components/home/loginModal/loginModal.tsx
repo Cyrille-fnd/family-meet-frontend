@@ -4,6 +4,7 @@ import Input from "@/components/form/input/Input";
 import Button from "@/components/form/button/button";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
+import setCookie from "@/app/services/cookie";
 
 export interface LoginModalProps {
     isOpen: boolean,
@@ -42,13 +43,6 @@ const LoginModal: React.FC<LoginModalProps> = ({
 
             router.push('/events')
         })
-    }
-
-    const setCookie = (name: string, value: string, days: number) => {
-        let date = new Date()
-        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
-        const expires = 'expires=' + date.toUTCString()
-        document.cookie = name + '=' + value + '; ' + expires + '; path=/'
     }
 
     return (

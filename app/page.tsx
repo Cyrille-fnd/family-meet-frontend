@@ -1,36 +1,9 @@
-import HomeView from "@/components/homeView/HomeView";
-import {cookies} from "next/headers";
+import HomeView from "@/components/home/homeView/HomeView";
 import { redirect } from 'next/navigation'
-
-async function getUserAccountData() {
-  const cookieStore = cookies()
-  const token = cookieStore.get("x-auth-token")
-
-  if (!token) return {
-    isLogged: false
-  }
-
-  const requestOptions = {
-    method: 'GET',
-    headers: {
-      'Authorization': 'bearer '+token.value,
-      'Access-Control-Allow-Origin': "*",
-    },
-  };
-
-  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/users/current', requestOptions)
-
-  if (!response.ok) {
-    return {isLogged: false}
-  }
-
-  const data = await response.json();
-
-  return {...data, isLogged: true}
-}
+import getCurrentUserData from "./services/user";
 
 export default async function Home() {
-  const {isLogged} = await getUserAccountData()
+  const {isLogged} = await getCurrentUserData()
 
   if (isLogged) redirect('/events')
 

@@ -1,35 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import s from "./eventCard.module.css"
 import Image from "next/image";
 import Separator from "../../common/separator/separator";
 
 interface EventCardProps {
     event: Event
-}
-
-interface Event {
-    id: string
-    title: string
-    location: string
-    date: string
-    category: string
-    createdAt: string
-    participantMax: number
-    guests: User[]
-    host: User
-}
-
-interface User {
-    id: string
-    email: string
-    sex: string
-    firstname: string
-    lastname: string
-    bio: string
-    birthday: string
-    city: string
-    pictureUrl: string| null
-    createdAt: string
 }
 
 const EventCard: React.FC<EventCardProps> = ({event}) => {

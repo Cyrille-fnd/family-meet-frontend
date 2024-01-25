@@ -1,23 +1,10 @@
 import React from "react";
 import s from "./account.module.css"
 import Image from "next/image";
-import SideMenu from "../sideMenu/sideMenu";
+import SideMenu from "../../common/sideMenu/sideMenu";
 
 interface AccountViewProps {
     user: User
-}
-
-interface User {
-    id: string
-    email: string
-    sex: string
-    firstname: string
-    lastname: string
-    bio: string
-    birthday: string
-    city: string
-    pictureUrl: string| null
-    createdAt: string
 }
 
 const getAge = (birthdate: string): number => {
