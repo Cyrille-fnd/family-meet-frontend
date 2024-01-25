@@ -5,19 +5,6 @@ import Button from "@/components/form/button/button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-interface User {
-    id: string
-    email: string
-    sex: string
-    firstname: string
-    lastname: string
-    bio: string
-    birthday: string
-    city: string
-    pictureUrl: string| null
-    createdAt: string
-}
-
 export interface EventAddModalProps {
     user: User
     isOpen: boolean
@@ -61,13 +48,6 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
             handleClose()
             router.refresh()
         })
-    }
-
-    const setCookie = (name: string, value: string, days: number) => {
-        let date = new Date()
-        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
-        const expires = 'expires=' + date.toUTCString()
-        document.cookie = name + '=' + value + '; ' + expires + '; path=/'
     }
 
     const displayErrorMessage = () => {

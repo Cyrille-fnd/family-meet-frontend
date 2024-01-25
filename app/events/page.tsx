@@ -1,65 +1,18 @@
 import React from "react";
-import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
-import EventsView from "@/components/eventsView/EventsView";
-
-async function getUserAccountData() {
-    const cookieStore = cookies()
-    const token = cookieStore.get("x-auth-token")
-
-    if (!token) return {
-        isLogged: false
-    }
-
-    const requestOptions = {
-        method: 'GET',
-        headers: {
-            'Authorization': 'bearer '+token.value,
-            'Access-Control-Allow-Origin': "*",
-        },
-    };
-
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/users/current', requestOptions)
-
-    if (!response.ok) {
-        return {isLogged: false}
-    }
-
-    const data = await response.json();
-
-    return {...data, isLogged: true}
-}
-
-async function getEvents() {
-    const cookieStore = cookies()
-    const token = cookieStore.get("x-auth-token")
-
-    if (!token) return {
-        isLogged: false
-    }
-
-    const requestOptions = {
-        method: 'GET',
-        headers: {
-            'Authorization': 'bearer '+token.value,
-            'Access-Control-Allow-Origin': "*",
-        },
-    };
-
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/events', requestOptions)
-
-    return response.json()
-}
+import EventsView from "@/components/event/eventsView/EventsView";
+import getCurrentUserData from "../services/user";
+import getEvents from "../services/event";
+import getToken from "../services/jwt";
 
 export default async function Home() {
-    const user = await getUserAccountData()
-
-    if (!user.isLogged) redirect('/')
-
-    const cookieStore = cookies()
-    const token = cookieStore.get("x-auth-token")
+    const token = getToken()
 
     if (!token) redirect('/')
+
+    const user = await getCurrentUserData()
+
+    if (!user.isLogged) redirect('/')
 
     const events = await getEvents()
 

@@ -2,10 +2,10 @@
 import * as React from 'react';
 import Image from "next/image";
 import s from "./home.module.css"
-import RegisterModal from "@/components/registerModal/registerModal";
+import RegisterModal from "@/components/home/registerModal/registerModal";
 import {useState} from "react";
 import Button from "@/components/form/button/button";
-import LoginModal from "@/components/loginModal/loginModal";
+import LoginModal from "@/components/home/loginModal/loginModal";
 
 const HomeView: React.FC = () => {
     const [isRegisterModalOpen, setRegisterModalOpen] = useState(false)

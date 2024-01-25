@@ -2,40 +2,15 @@
 import * as React from 'react';
 import { useState } from "react";
 import s from "./eventsView.module.css"
-import SideMenu from "@/components/sideMenu/sideMenu";
+import SideMenu from "@/components/common/sideMenu/sideMenu";
 import Button from "@/components/form/button/button";
 import EventsList from "@/components/event/eventsList/eventsList";
-import EventAddModal from "@/components/eventAddModal/eventAddModal";
+import EventAddModal from "@/components/event/eventAddModal/eventAddModal";
 
 interface EventsViewProps {
     events: Event[]
     user: User
     token: string
-}
-
-interface Event {
-    id: string
-    title: string
-    location: string
-    date: string
-    category: string
-    createdAt: string
-    participantMax: number
-    guests: User[]
-    host: User
-}
-
-interface User {
-    id: string
-    email: string
-    sex: string
-    firstname: string
-    lastname: string
-    bio: string
-    birthday: string
-    city: string
-    pictureUrl: string| null
-    createdAt: string
 }
 
 const EventsView: React.FC<EventsViewProps> = ({events, user, token}) => {
