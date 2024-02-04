@@ -39,7 +39,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
             })
         };
 
-        fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/users', requestOptions
+        fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/register', requestOptions
         ).then(async response => {
             const {token} = await response.json();
 
