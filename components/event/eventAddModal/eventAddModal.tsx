@@ -37,7 +37,7 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
             })
         };
 
-        fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/users/'+ user.id +'/events', requestOptions
+        fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/events?hostId=' + user.id, requestOptions
         ).then(async response => {
             if (response.status !== 201) {
                 displayErrorMessage() 
