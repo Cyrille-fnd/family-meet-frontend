@@ -30,6 +30,7 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
             },
             body: JSON.stringify({
                 title: formData.get('title'),
+                description: formData.get('description'),
                 location: formData.get('location'),
                 date: formData.get('date'),
                 category: formData.get('category'),
@@ -68,6 +69,7 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
                     <h1 className={s.errorMessage} id="errorMessage">Something went wrong ! try again</h1>
                     <form className={s.modalForm} onSubmit={handleSubmit} id="eventAddForm">
                         <Input name="title" placeholder="Titre"/>
+                        <Input name="description" type="textarea" placeholder="Description"/>
                         <Input name="location" placeholder="Lieu"/>
                         <Input name="date" type="datetime-local"/>
                         <Input name="category" placeholder="Catégorie"/>
