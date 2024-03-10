@@ -5,6 +5,8 @@ import Button from "@/components/form/button/button";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
 import setCookie from "@/app/services/cookie";
+import Loader from "@/components/common/loader/formValidation/loader";
+import {useState} from "react";
 
 export interface LoginModalProps {
     isOpen: boolean,
@@ -16,10 +18,12 @@ const LoginModal: React.FC<LoginModalProps> = ({
   close
 }) => {
     const router = useRouter()
+    const [loader, setLoader] = useState(false)
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
+        setLoader(prevState => !prevState)
         const formData = new FormData(event.currentTarget)
 
         const requestOptions = {
@@ -42,6 +46,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
             setCookie('x-auth-token', token, 1)
 
             router.push('/events')
+            setLoader(prevState => !prevState)
         })
     }
 
@@ -54,7 +59,10 @@ const LoginModal: React.FC<LoginModalProps> = ({
                     <form className={s.modalForm} onSubmit={handleSubmit} id="loginForm">
                         <Input name="email" placeholder="Email"/>
                         <Input name="password" type="password" placeholder="Password"/>
-                        <Button type="submit" form="loginForm" value="Me connecter" />
+                        <div className={s.submitContainer}>
+                            <Button type="submit" form="loginForm" value="Me connecter" />
+                            {loader && <Loader />}
+                        </div>
                     </form>
 
                     <button className={s.closeModal} onClick={close} >

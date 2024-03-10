@@ -48,10 +48,6 @@ body.active-modal {
     width: 100%;
 }
 
-.modalForm Button {
-    margin-top: 15px;
-}
-
 .closeModal {
     position: absolute;
     top: 10px;
@@ -64,4 +60,13 @@ body.active-modal {
     font-size: x-large;
     font-weight: bold;
     margin-bottom: 15px;
+}
+
+.submitContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 15px;
 }

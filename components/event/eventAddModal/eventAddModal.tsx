@@ -4,6 +4,8 @@ import Input from "@/components/form/input/Input";
 import Button from "@/components/form/button/button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Loader from "@/components/common/loader/formValidation/loader";
+import {useState} from "react";
 
 export interface EventAddModalProps {
     user: User
@@ -15,10 +17,12 @@ export interface EventAddModalProps {
 const EventAddModal: React.FC<EventAddModalProps> = ({
     user, token, isOpen, close
 }) => {
+    const [loader, setLoader] = useState(false)
     const router = useRouter()
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        setLoader(prevState => !prevState)
         const formData = new FormData(event.currentTarget)
 
         const requestOptions = {
@@ -57,6 +61,7 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
     }
 
     const handleClose = () => {
+        setLoader(prevState => !prevState)
         close()
     }
 
@@ -74,7 +79,10 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
                         <Input name="date" type="datetime-local"/>
                         <Input name="category" placeholder="Catégorie"/>
                         <Input name="participantMax" type="number"/>
-                        <Button type="submit" form="eventAddForm" value="Créer l'événement" />
+                        <div className={s.submitContainer}>
+                            <Button type="submit" form="eventAddForm" value="Créer l'événement" />
+                            {loader && <Loader />}
+                        </div>
                     </form>
 
                     <button className={s.closeModal} onClick={handleClose}>
