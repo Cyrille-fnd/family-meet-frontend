@@ -77,7 +77,11 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                     <form className={s.modalForm} onSubmit={handleSubmit} id="registerForm">
                         <Input name="email" placeholder="Email"/>
                         <Input name="password" type="password" placeholder="Mot de passe"/>
-                        <Input name="sex" placeholder="Sexe"/>
+                        <select name="sex" id="sex-select" className={s.select}>
+                            <option value="">Sexe</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
                         <Input name="firstname" placeholder="Prénom"/>
                         <Input name="lastname" placeholder="Nom"/>
                         <Input name="bio" placeholder="Bio"/>
