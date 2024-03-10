@@ -18,12 +18,19 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
     user, token, isOpen, close
 }) => {
     const [loader, setLoader] = useState(false)
+    const [selectedCategory, setSelectedCategory] = useState('');
     const router = useRouter()
+
+    const handleChange = (event: React.FormEvent<HTMLSelectElement>) => {
+        setSelectedCategory(event.currentTarget.value);
+    };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setLoader(prevState => !prevState)
         const formData = new FormData(event.currentTarget)
+
+        formData.append('category', selectedCategory);
 
         const requestOptions = {
             method: 'POST',
@@ -77,7 +84,17 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
                         <Input name="description" type="textarea" placeholder="Description"/>
                         <Input name="location" placeholder="Lieu"/>
                         <Input name="date" type="datetime-local" min={new Date().toISOString().slice(0, -8)}/>
-                        <Input name="category" placeholder="Catégorie"/>
+                        <label>
+                            Catégorie :
+                            <select name="category" value={selectedCategory} onChange={handleChange} className={s.select}>
+                                <option value="travail">travail</option>
+                                <option value="bar">bar</option>
+                                <option value="club">club</option>
+                                <option value="sport">sport</option>
+                                <option value="voyage">voyage</option>
+                                <option value="cinéma">cinéma</option>
+                            </select>
+                        </label>
                         <Input name="participantMax" type="number" min="1"/>
                         <div className={s.submitContainer}>
                             <Button type="submit" form="eventAddForm" value="Créer l'événement" />

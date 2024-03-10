@@ -18,12 +18,19 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
 }) => {
     const router = useRouter()
     const [loader, setLoader] = useState(false)
+    const [selectedSex, setSelectedSex] = useState('');
+
+    const handleChange = (event: React.FormEvent<HTMLSelectElement>) => {
+        setSelectedSex(event.currentTarget.value);
+    };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
         setLoader(prevState => !prevState)
         const formData = new FormData(event.currentTarget)
+
+        formData.append('sex', selectedSex);
 
         const requestOptions = {
             method: 'POST',
@@ -77,11 +84,13 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                     <form className={s.modalForm} onSubmit={handleSubmit} id="registerForm">
                         <Input name="email" placeholder="Email"/>
                         <Input name="password" type="password" placeholder="Mot de passe"/>
-                        <select name="sex" id="sex-select" className={s.select}>
-                            <option value="">Sexe</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
+                        <label>
+                            Sexe
+                            <select name="sex" value={selectedSex} onChange={handleChange} className={s.select}>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </label>
                         <Input name="firstname" placeholder="Prénom"/>
                         <Input name="lastname" placeholder="Nom"/>
                         <Input name="bio" placeholder="Bio"/>
