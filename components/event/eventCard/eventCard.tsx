@@ -15,7 +15,7 @@ const EventCard: React.FC<EventCardProps> = ({event}) => {
                 <div className={s.pictureContainer}>
                     <Image
                         priority={false}
-                        src={"/icon-fete.jpg"}
+                        src={"/image-" + event.category + ".jpg"}
                         width={150}
                         height={8}
                         alt={'family-logo'}
