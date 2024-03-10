@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './loader.module.css'
+import s from '../infiniteScroll/loader.module.css'
 
 const Loader = () => {
     return (

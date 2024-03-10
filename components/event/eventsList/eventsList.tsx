@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import s from "./eventsList.module.css"
 import EventCard from "../eventCard/eventCard";
 import { nanoid } from "nanoid";
-import Loader from "@/components/common/loader/loader";
+import Loader from "@/components/common/loader/infiniteScroll/loader";
 
 interface EventInfosProps {
     events: Event[]

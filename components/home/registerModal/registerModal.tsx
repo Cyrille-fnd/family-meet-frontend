@@ -5,6 +5,8 @@ import Button from "@/components/form/button/button";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
 import setCookie from "@/app/services/cookie";
+import {useState} from "react";
+import Loader from "@/components/common/loader/formValidation/loader";
 
 export interface RegisterModalProps {
     isOpen: boolean
@@ -15,9 +17,12 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
     isOpen, close
 }) => {
     const router = useRouter()
+    const [loader, setLoader] = useState(false)
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+
+        setLoader(prevState => !prevState)
         const formData = new FormData(event.currentTarget)
 
         const requestOptions = {
@@ -48,6 +53,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
             setCookie('x-auth-token', token, 1)
 
             router.push('/events')
+            setLoader(prevState => !prevState)
         })
     }
 
@@ -66,7 +72,10 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                         <Input name="bio" placeholder="Bio"/>
                         <Input name="birthday" type="date"/>
                         <Input name="city" placeholder="Ville"/>
-                        <Button type="submit" form="registerForm" value="Créer mon compte" />
+                        <div className={s.submitContainer}>
+                            <Button type="submit" form="registerForm" value="Créer mon compte" />
+                            {loader && <Loader />}
+                        </div>
                     </form>
 
                     <button className={s.closeModal} onClick={close}>
