@@ -92,7 +92,8 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
                                 <option value="club">club</option>
                                 <option value="sport">sport</option>
                                 <option value="voyage">voyage</option>
-                                <option value="cinéma">cinéma</option>
+                                <option value="cinema">cinéma</option>
+                                <option value="restaurant">restaurant</option>
                             </select>
                         </label>
                         <Input name="participantMax" type="number" min="1"/>
