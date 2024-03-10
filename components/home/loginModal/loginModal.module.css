@@ -60,6 +60,11 @@ body.active-modal {
     margin-bottom: 15px;
 }
 
+.errorMessage {
+    display: none;
+    color: crimson;
+}
+
 .submitContainer {
     display: flex;
     flex-direction: row;

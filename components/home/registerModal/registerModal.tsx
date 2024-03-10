@@ -46,6 +46,12 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
 
         fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/register', requestOptions
         ).then(async response => {
+            if (response.status !== 201) {
+                setLoader(prevState => !prevState)
+                displayErrorMessage()
+
+                return
+            }
             const {token} = await response.json();
 
             if (!token) return
@@ -55,6 +61,11 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
             router.push('/events')
             setLoader(prevState => !prevState)
         })
+    }
+
+    const displayErrorMessage = () => {
+        const errorMessageElement = document.getElementById("errorMessage")
+        if (errorMessageElement !== null) errorMessageElement.style.display = "block"
     }
 
     return (
@@ -77,6 +88,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                             {loader && <Loader />}
                         </div>
                     </form>
+                    <h1 className={s.errorMessage} id="errorMessage">Something went wrong ! try again</h1>
 
                     <button className={s.closeModal} onClick={close}>
                         <Image
