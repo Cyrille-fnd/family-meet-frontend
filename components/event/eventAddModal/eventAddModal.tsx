@@ -76,9 +76,9 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
                         <Input name="title" placeholder="Titre"/>
                         <Input name="description" type="textarea" placeholder="Description"/>
                         <Input name="location" placeholder="Lieu"/>
-                        <Input name="date" type="datetime-local"/>
+                        <Input name="date" type="datetime-local" min={new Date().toISOString().slice(0, -8)}/>
                         <Input name="category" placeholder="Catégorie"/>
-                        <Input name="participantMax" type="number"/>
+                        <Input name="participantMax" type="number" min="1"/>
                         <div className={s.submitContainer}>
                             <Button type="submit" form="eventAddForm" value="Créer l'événement" />
                             {loader && <Loader />}
