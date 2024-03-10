@@ -40,6 +40,12 @@ const LoginModal: React.FC<LoginModalProps> = ({
 
         fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/login_check', requestOptions
         ).then(async response => {
+            if (response.status !== 200) {
+                setLoader(prevState => !prevState)
+                displayErrorMessage()
+
+                return
+            }
             const {token} = await response.json();
 
             if (!token) return
@@ -50,12 +56,18 @@ const LoginModal: React.FC<LoginModalProps> = ({
         })
     }
 
+    const displayErrorMessage = () => {
+        const errorMessageElement = document.getElementById("errorMessage")
+        if (errorMessageElement !== null) errorMessageElement.style.display = "block"
+    }
+
     return (
         isOpen && (
             <div className={s.modal}>
                 <div className={s.overlay} onClick={close}/>
                 <div className={s.modalContent}>
                     <h1 className={s.formTitle}>Connectez-vous</h1>
+                    <h1 className={s.errorMessage} id="errorMessage">Something went wrong ! try again</h1>
                     <form className={s.modalForm} onSubmit={handleSubmit} id="loginForm">
                         <Input name="email" placeholder="Email"/>
                         <Input name="password" type="password" placeholder="Password"/>
