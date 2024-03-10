@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import s from "./eventsList.module.css"
 import EventCard from "../eventCard/eventCard";
 import { nanoid } from "nanoid";
+import Loader from "@/components/common/loader/loader";
 
 interface EventInfosProps {
     events: Event[]
@@ -55,7 +56,7 @@ const EventsList: React.FC<EventInfosProps> = ({events, token}) => {
                 }
                 <EventCard event={event}/>
             </div>)}
-        {!stopInfiniteScroll && loader && <h1>LOADING MORE EVENTS.........</h1> }
+        {!stopInfiniteScroll && loader && <Loader />}
     </>)
 }
 
