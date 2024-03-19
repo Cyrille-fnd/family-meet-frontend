@@ -14,10 +14,14 @@ const getEvents = async () => {
             'Access-Control-Allow-Origin': "*",
         },
     };
-
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/events', requestOptions)
 
-    return response.json()
+    if (response.ok) {
+        return response.json()
+    } else {
+        console.log('something wrong happened:')
+        return []
+    }
 }
 
 export default getEvents
