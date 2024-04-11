@@ -51,7 +51,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
             })
         };
 
-        fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/register', requestOptions
+        fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/users', requestOptions
         ).then(async response => {
             if (response.status !== 201) {
                 setLoader(prevState => !prevState)

@@ -47,7 +47,7 @@ const AccountView: React.FC<AccountViewProps> = ({user, token}) => {
         };
 
         try {
-            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/users/' + user.id + '/upload', requestOptions);
+            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/users/' + user.id + '/upload', requestOptions);
 
             if (response.ok) {
                 console.log('File uploaded successfully.');

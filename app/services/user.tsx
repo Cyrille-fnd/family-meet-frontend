@@ -15,8 +15,8 @@ const getCurrentUserData = async () => {
       },
     };
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/users?current=true', requestOptions)
-  
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/users?current=true', requestOptions)
+
     if (!response.ok) {
       return {isLogged: false}
     }

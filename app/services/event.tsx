@@ -14,7 +14,7 @@ const getEvents = async () => {
             'Access-Control-Allow-Origin': "*",
         },
     };
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/events', requestOptions)
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/meets', requestOptions)
 
     if (response.ok) {
         return response.json()

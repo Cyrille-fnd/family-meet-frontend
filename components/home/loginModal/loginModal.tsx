@@ -38,7 +38,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
             })
         };
 
-        fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/login_check', requestOptions
+        fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/login', requestOptions
         ).then(async response => {
             if (response.status !== 200) {
                 setLoader(prevState => !prevState)

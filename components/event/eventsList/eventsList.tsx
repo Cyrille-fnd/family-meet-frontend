@@ -23,7 +23,7 @@ const EventsList: React.FC<EventInfosProps> = ({events, token}) => {
                     'Access-Control-Allow-Origin': "*",
                 },
             };
-            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/v1/api/events?page=' + currentPage, requestOptions)
+            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/meets?page=' + currentPage, requestOptions)
 
             const data = await response.json()
             if (data.length === 0) {
