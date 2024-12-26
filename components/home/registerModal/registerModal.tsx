@@ -59,14 +59,34 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
 
                 return
             }
-            const {token} = await response.json();
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Access-Control-Allow-Origin': "*",
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: formData.get('email'),
+                    password: formData.get('password'),
+                })
+            };
 
-            if (!token) return
+            fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/login', requestOptions
+            ).then(async response => {
+                if (response.status !== 200) {
+                    setLoader(prevState => !prevState)
+                    displayErrorMessage()
 
-            setCookie('x-auth-token', token, 1)
+                    return
+                }
+                const {token} = await response.json();
 
-            router.push('/events')
-            setLoader(prevState => !prevState)
+                if (!token) return
+                setCookie('x-auth-token', token, 1)
+
+                router.push('/events')
+                setLoader(prevState => !prevState)
+            })
         })
     }
 
