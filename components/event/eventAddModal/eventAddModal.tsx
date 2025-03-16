@@ -89,7 +89,7 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
                             <select name="category" value={selectedCategory} onChange={handleChange} className={s.select}>
                                 <option value="travail">travail</option>
                                 <option value="bar">bar</option>
-                                <option value="club">club</option>
+                                <option value="clubbing">clubbing</option>
                                 <option value="sport">sport</option>
                                 <option value="voyage">voyage</option>
                                 <option value="cinema">cinéma</option>
