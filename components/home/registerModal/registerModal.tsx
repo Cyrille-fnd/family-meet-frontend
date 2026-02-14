@@ -17,6 +17,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
 }) => {
     const router = useRouter()
     const [loader, setLoader] = useState(false)
+    const [error, setError] = useState(false)
     const [selectedSex, setSelectedSex] = useState('');
 
     const handleChange = (event: React.FormEvent<HTMLSelectElement>) => {
@@ -26,6 +27,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
+        setError(false)
         setLoader(prevState => !prevState)
         const formData = new FormData(event.currentTarget)
 
@@ -48,7 +50,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
         }).then(async response => {
             if (response.status !== 200) {
                 setLoader(prevState => !prevState)
-                displayErrorMessage()
+                setError(true)
 
                 return
             }
@@ -56,11 +58,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
             router.push('/events')
             setLoader(prevState => !prevState)
         })
-    }
-
-    const displayErrorMessage = () => {
-        const errorMessageElement = document.getElementById("errorMessage")
-        if (errorMessageElement !== null) errorMessageElement.style.display = "block"
     }
 
     return (
@@ -89,7 +86,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                             {loader && <Loader />}
                         </div>
                     </form>
-                    <h1 className={s.errorMessage} id="errorMessage">Something went wrong ! try again</h1>
+                    {error && <h1 className={s.errorMessage}>Something went wrong ! try again</h1>}
 
                     <button className={s.closeModal} onClick={close}>
                         <Image

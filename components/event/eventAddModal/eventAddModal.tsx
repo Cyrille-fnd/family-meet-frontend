@@ -18,6 +18,7 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
     user, token, isOpen, close
 }) => {
     const [loader, setLoader] = useState(false)
+    const [error, setError] = useState(false)
     const [selectedCategory, setSelectedCategory] = useState('');
     const router = useRouter()
 
@@ -27,6 +28,7 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        setError(false)
         setLoader(prevState => !prevState)
         const formData = new FormData(event.currentTarget)
 
@@ -36,7 +38,6 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
             method: 'POST',
             headers: {
                 'Authorization': 'bearer '+token,
-                'Access-Control-Allow-Origin': "*",
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -52,19 +53,14 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
         fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/users/' + user.id + '/meets', requestOptions
         ).then(async response => {
             if (response.status !== 201) {
-                displayErrorMessage() 
-                
-                return 
+                setError(true)
+
+                return
             }
-            
+
             handleClose()
             router.refresh()
         })
-    }
-
-    const displayErrorMessage = () => {
-        const errorMessageElement = document.getElementById("errorMessage")
-        if (errorMessageElement !== null) errorMessageElement.style.display = "block"
     }
 
     const handleClose = () => {
@@ -78,7 +74,7 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
                 <div className={s.overlay} onClick={close}/>
                 <div className={s.modalContent}>
                     <h1 className={s.formTitle}>Créer un événement</h1>
-                    <h1 className={s.errorMessage} id="errorMessage">Something went wrong ! try again</h1>
+                    {error && <h1 className={s.errorMessage}>Something went wrong ! try again</h1>}
                     <form className={s.modalForm} onSubmit={handleSubmit} id="eventAddForm">
                         <Input name="title" placeholder="Titre"/>
                         <Input name="description" type="textarea" placeholder="Description"/>

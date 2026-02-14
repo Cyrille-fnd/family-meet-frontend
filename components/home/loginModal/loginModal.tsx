@@ -18,10 +18,12 @@ const LoginModal: React.FC<LoginModalProps> = ({
 }) => {
     const router = useRouter()
     const [loader, setLoader] = useState(false)
+    const [error, setError] = useState(false)
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
+        setError(false)
         setLoader(prevState => !prevState)
         const formData = new FormData(event.currentTarget)
 
@@ -35,7 +37,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
         }).then(async response => {
             if (response.status !== 200) {
                 setLoader(prevState => !prevState)
-                displayErrorMessage()
+                setError(true)
 
                 return
             }
@@ -45,18 +47,13 @@ const LoginModal: React.FC<LoginModalProps> = ({
         })
     }
 
-    const displayErrorMessage = () => {
-        const errorMessageElement = document.getElementById("errorMessage")
-        if (errorMessageElement !== null) errorMessageElement.style.display = "block"
-    }
-
     return (
         isOpen && (
             <div className={s.modal}>
                 <div className={s.overlay} onClick={close}/>
                 <div className={s.modalContent}>
                     <h1 className={s.formTitle}>Connectez-vous</h1>
-                    <h1 className={s.errorMessage} id="errorMessage">Something went wrong ! try again</h1>
+                    {error && <h1 className={s.errorMessage}>Something went wrong ! try again</h1>}
                     <form className={s.modalForm} onSubmit={handleSubmit} id="loginForm">
                         <Input name="email" placeholder="Email"/>
                         <Input name="password" type="password" placeholder="Password"/>
