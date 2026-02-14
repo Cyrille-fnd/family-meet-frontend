@@ -5,7 +5,7 @@ import getCurrentUserData from "../services/user";
 import getToken from "@/app/services/jwt";
 
 export default async function Account() {
-    const token = getToken()
+    const token = await getToken()
 
     if (!token) redirect('/')
 

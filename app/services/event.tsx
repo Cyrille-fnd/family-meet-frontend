@@ -2,7 +2,7 @@ import getToken from "./jwt";
 import { apiGet } from "./apiClient";
 
 const getEvents = async () => {
-    const token = getToken()
+    const token = await getToken()
 
     if (!token) return {
         isLogged: false

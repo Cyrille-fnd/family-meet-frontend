@@ -2,13 +2,13 @@ import getToken from "./jwt";
 import { apiGet } from "./apiClient";
 
 const getCurrentUserData = async () => {
-    const token = getToken()
+    const token = await getToken()
 
     if (!token) return {
       isLogged: false
     }
 
-    const response = await apiGet('/api/v2/users?current=true', token.value)
+    const response = await apiGet('/api/v2/users/me', token.value)
 
     if (!response.ok) {
       return {isLogged: false}

@@ -35,7 +35,7 @@ export async function POST(request: Request) {
         )
     }
 
-    cookies().set('x-auth-token', token, {
+    (await cookies()).set('x-auth-token', token, {
         httpOnly: true,
         secure: true,
         sameSite: 'strict',

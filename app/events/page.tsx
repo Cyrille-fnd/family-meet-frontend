@@ -6,7 +6,7 @@ import getEvents from "../services/event";
 import getToken from "../services/jwt";
 
 export default async function Home() {
-    const token = getToken()
+    const token = await getToken()
 
     if (!token) redirect('/')
 

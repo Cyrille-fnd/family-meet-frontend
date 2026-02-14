@@ -1,7 +1,7 @@
 import { cookies } from "next/headers"
 
-const getToken = () => {
-    const cookieStore = cookies()
+const getToken = async () => {
+    const cookieStore = await cookies()
 
     return cookieStore.get("x-auth-token")
 }

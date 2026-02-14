@@ -20,6 +20,7 @@
 # misc
 .DS_Store
 *.pem
+caddy-root.crt
 
 # debug
 npm-debug.log*
@@ -37,3 +38,5 @@ yarn-error.log*
 next-env.d.ts
 
 AUDIT.md
+
+certificates
