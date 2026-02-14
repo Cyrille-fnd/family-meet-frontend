@@ -16,23 +16,27 @@ const EventsList: React.FC<EventInfosProps> = ({events, token}) => {
     const [loader, setLoader] = useState(false)
     useEffect(() => {
         const fetchEvents = async (token: string) => {
-            const requestOptions = {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'bearer '+token,
-                    'Access-Control-Allow-Origin': "*",
-                },
-            };
-            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/meets?page=' + currentPage, requestOptions)
+            try {
+                const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/meets?page=' + currentPage, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'bearer ' + token,
+                        'Access-Control-Allow-Origin': "*",
+                    },
+                })
 
-            const data = await response.json()
-            if (data.length === 0) {
-                setStopInfiniteScroll(stopInfiniteScroll => !stopInfiniteScroll)
-                return
+                const data = await response.json()
+                if (data.length === 0) {
+                    setStopInfiniteScroll(stopInfiniteScroll => !stopInfiniteScroll)
+                    return
+                }
+                setEventList(prevData => [...prevData, ...data])
+                setCurrentPage(prevPage => prevPage + 1)
+            } catch {
+                setStopInfiniteScroll(true)
+            } finally {
+                setLoader(false)
             }
-            setEventList(prevData => [...prevData, ...data])
-            setCurrentPage(prevPage => prevPage + 1)
-            setLoader(loader => !loader)
         }
 
         const handleScroll = () => {

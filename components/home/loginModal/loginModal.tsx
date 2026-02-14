@@ -20,31 +20,34 @@ const LoginModal: React.FC<LoginModalProps> = ({
     const [loader, setLoader] = useState(false)
     const [error, setError] = useState(false)
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
         setError(false)
-        setLoader(prevState => !prevState)
+        setLoader(true)
         const formData = new FormData(event.currentTarget)
 
-        fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                username: formData.get('email'),
-                password: formData.get('password'),
-            }),
-        }).then(async response => {
-            if (response.status !== 200) {
-                setLoader(prevState => !prevState)
-                setError(true)
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: formData.get('email'),
+                    password: formData.get('password'),
+                }),
+            })
 
+            if (response.status !== 200) {
+                setError(true)
                 return
             }
 
             router.push('/events')
-            setLoader(prevState => !prevState)
-        })
+        } catch {
+            setError(true)
+        } finally {
+            setLoader(false)
+        }
     }
 
     return (

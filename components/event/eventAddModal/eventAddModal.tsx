@@ -26,41 +26,43 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
         setSelectedCategory(event.currentTarget.value);
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setError(false)
-        setLoader(prevState => !prevState)
+        setLoader(true)
         const formData = new FormData(event.currentTarget)
 
         formData.append('category', selectedCategory);
 
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Authorization': 'bearer '+token,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                title: formData.get('title'),
-                description: formData.get('description'),
-                location: formData.get('location'),
-                date: formData.get('date'),
-                category: formData.get('category'),
-                participantMax: formData.get('participantMax'),
+        try {
+            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/users/' + user.id + '/meets', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: formData.get('title'),
+                    description: formData.get('description'),
+                    location: formData.get('location'),
+                    date: formData.get('date'),
+                    category: formData.get('category'),
+                    participantMax: formData.get('participantMax'),
+                })
             })
-        };
 
-        fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/users/' + user.id + '/meets', requestOptions
-        ).then(async response => {
             if (response.status !== 201) {
                 setError(true)
-
                 return
             }
 
             handleClose()
             router.refresh()
-        })
+        } catch {
+            setError(true)
+        } finally {
+            setLoader(false)
+        }
     }
 
     const handleClose = () => {

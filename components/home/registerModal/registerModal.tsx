@@ -24,40 +24,43 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
         setSelectedSex(event.currentTarget.value);
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
         setError(false)
-        setLoader(prevState => !prevState)
+        setLoader(true)
         const formData = new FormData(event.currentTarget)
 
         formData.append('sex', selectedSex);
 
-        fetch('/api/auth/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                email: formData.get('email'),
-                password: formData.get('password'),
-                sex: formData.get('sex'),
-                firstname: formData.get('firstname'),
-                lastname: formData.get('lastname'),
-                bio: formData.get('bio'),
-                birthday: formData.get('birthday'),
-                city: formData.get('city'),
-                pictureUrl: null,
-            }),
-        }).then(async response => {
-            if (response.status !== 200) {
-                setLoader(prevState => !prevState)
-                setError(true)
+        try {
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: formData.get('email'),
+                    password: formData.get('password'),
+                    sex: formData.get('sex'),
+                    firstname: formData.get('firstname'),
+                    lastname: formData.get('lastname'),
+                    bio: formData.get('bio'),
+                    birthday: formData.get('birthday'),
+                    city: formData.get('city'),
+                    pictureUrl: null,
+                }),
+            })
 
+            if (response.status !== 200) {
+                setError(true)
                 return
             }
 
             router.push('/events')
-            setLoader(prevState => !prevState)
-        })
+        } catch {
+            setError(true)
+        } finally {
+            setLoader(false)
+        }
     }
 
     return (
