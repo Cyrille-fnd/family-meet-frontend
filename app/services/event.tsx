@@ -1,4 +1,5 @@
 import getToken from "./jwt";
+import { apiGet } from "./apiClient";
 
 const getEvents = async () => {
     const token = getToken()
@@ -7,19 +8,11 @@ const getEvents = async () => {
         isLogged: false
     }
 
-    const requestOptions = {
-        method: 'GET',
-        headers: {
-            'Authorization': 'bearer '+token.value,
-            'Access-Control-Allow-Origin': "*",
-        },
-    };
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/meets', requestOptions)
+    const response = await apiGet('/api/v2/meets', token.value)
 
     if (response.ok) {
-        return response.json()
+        return response.data
     } else {
-        console.log('something wrong happened:')
         return []
     }
 }

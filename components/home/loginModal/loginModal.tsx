@@ -4,7 +4,6 @@ import Input from "@/components/form/input/Input";
 import Button from "@/components/form/button/button";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
-import setCookie from "@/app/services/cookie";
 import Loader from "@/components/common/loader/formValidation/loader";
 import {useState} from "react";
 
@@ -26,31 +25,20 @@ const LoginModal: React.FC<LoginModalProps> = ({
         setLoader(prevState => !prevState)
         const formData = new FormData(event.currentTarget)
 
-        const requestOptions = {
+        fetch('/api/auth/login', {
             method: 'POST',
-            headers: {
-                'Access-Control-Allow-Origin': "*",
-                'Access-Control-Allow-Headers': "*",
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 username: formData.get('email'),
                 password: formData.get('password'),
-            })
-        };
-
-        fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/login', requestOptions
-        ).then(async response => {
+            }),
+        }).then(async response => {
             if (response.status !== 200) {
                 setLoader(prevState => !prevState)
                 displayErrorMessage()
 
                 return
             }
-            const {token} = await response.json();
-
-            if (!token) return
-            setCookie('x-auth-token', token, 1)
 
             router.push('/events')
             setLoader(prevState => !prevState)

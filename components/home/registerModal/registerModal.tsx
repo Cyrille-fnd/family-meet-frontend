@@ -4,7 +4,6 @@ import Input from "@/components/form/input/Input";
 import Button from "@/components/form/button/button";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
-import setCookie from "@/app/services/cookie";
 import {useState} from "react";
 import Loader from "@/components/common/loader/formValidation/loader";
 
@@ -32,12 +31,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
 
         formData.append('sex', selectedSex);
 
-        const requestOptions = {
+        fetch('/api/auth/register', {
             method: 'POST',
-            headers: {
-                'Access-Control-Allow-Origin': "*",
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 email: formData.get('email'),
                 password: formData.get('password'),
@@ -48,45 +44,17 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                 birthday: formData.get('birthday'),
                 city: formData.get('city'),
                 pictureUrl: null,
-            })
-        };
-
-        fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/users', requestOptions
-        ).then(async response => {
-            if (response.status !== 201) {
+            }),
+        }).then(async response => {
+            if (response.status !== 200) {
                 setLoader(prevState => !prevState)
                 displayErrorMessage()
 
                 return
             }
-            const requestOptions = {
-                method: 'POST',
-                headers: {
-                    'Access-Control-Allow-Origin': "*",
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: formData.get('email'),
-                    password: formData.get('password'),
-                })
-            };
 
-            fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/login', requestOptions
-            ).then(async response => {
-                if (response.status !== 200) {
-                    setLoader(prevState => !prevState)
-                    displayErrorMessage()
-
-                    return
-                }
-                const {token} = await response.json();
-
-                if (!token) return
-                setCookie('x-auth-token', token, 1)
-
-                router.push('/events')
-                setLoader(prevState => !prevState)
-            })
+            router.push('/events')
+            setLoader(prevState => !prevState)
         })
     }
 

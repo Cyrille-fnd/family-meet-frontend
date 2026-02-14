@@ -1,29 +1,20 @@
 import getToken from "./jwt";
+import { apiGet } from "./apiClient";
 
 const getCurrentUserData = async () => {
     const token = getToken()
-  
+
     if (!token) return {
       isLogged: false
     }
-  
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-        'Authorization': 'bearer '+token.value,
-        'Access-Control-Allow-Origin': "*",
-      },
-    };
-  
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/v2/users?current=true', requestOptions)
+
+    const response = await apiGet('/api/v2/users?current=true', token.value)
 
     if (!response.ok) {
       return {isLogged: false}
     }
-  
-    const data = await response.json();
-  
-    return {...data, isLogged: true}
+
+    return {...response.data, isLogged: true}
 }
 
 export default getCurrentUserData
