@@ -1,22 +1,17 @@
-import React from "react";
-import AccountView from "@/components/account/accountView/AccountView";
-import {redirect} from "next/navigation";
-import getCurrentUserData from "../services/user";
-import getToken from "@/app/services/jwt";
+import React from "react"
+import AccountView from "@/components/account/accountView/AccountView"
+import { redirect } from "next/navigation"
+import getCurrentUserData from "../services/user"
+import getToken from "@/app/services/jwt"
 
 export default async function Account() {
-    const token = await getToken()
+  const token = await getToken()
 
-    if (!token) redirect('/')
+  if (!token) redirect("/")
 
-    const user = await getCurrentUserData()
+  const user = await getCurrentUserData()
 
-    if (!user.isLogged) redirect('/')
+  if (!user.isLogged) redirect("/")
 
-    return (
-        <AccountView
-            user={user}
-            token={token.value}
-        />
-    )
+  return <AccountView user={user} token={token.value} />
 }
