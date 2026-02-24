@@ -5,7 +5,12 @@ import s from "./eventsView.module.css"
 import SideMenu from "@/components/common/sideMenu/sideMenu"
 import Button from "@/components/form/button/button"
 import EventsList from "@/components/event/eventsList/eventsList"
-import EventAddModal from "@/components/event/eventAddModal/eventAddModal"
+import dynamic from "next/dynamic"
+
+const EventAddModal = dynamic(
+  () => import("@/components/event/eventAddModal/eventAddModal"),
+  { ssr: false }
+)
 
 interface EventsViewProps {
   events: Event[]

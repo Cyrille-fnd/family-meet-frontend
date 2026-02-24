@@ -2,10 +2,18 @@
 import * as React from "react"
 import Image from "next/image"
 import s from "./home.module.css"
-import RegisterModal from "@/components/home/registerModal/registerModal"
+import dynamic from "next/dynamic"
 import { useState } from "react"
 import Button from "@/components/form/button/button"
-import LoginModal from "@/components/home/loginModal/loginModal"
+
+const LoginModal = dynamic(
+  () => import("@/components/home/loginModal/loginModal"),
+  { ssr: false }
+)
+const RegisterModal = dynamic(
+  () => import("@/components/home/registerModal/registerModal"),
+  { ssr: false }
+)
 
 const HomeView: React.FC = () => {
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false)
