@@ -3,19 +3,20 @@ import s from "./eventsList.module.css"
 import EventCard from "../eventCard/eventCard"
 import { nanoid } from "nanoid"
 import Loader from "@/components/common/loader/infiniteScroll/loader"
+import { useAuth } from "@/app/context/AuthContext"
 
 interface EventInfosProps {
   events: Event[]
-  token: string
 }
 
-const EventsList: React.FC<EventInfosProps> = ({ events, token }) => {
+const EventsList: React.FC<EventInfosProps> = ({ events }) => {
+  const { token } = useAuth()
   const [eventList, setEventList] = useState(events)
   const [currentPage, setCurrentPage] = useState(2)
   const [stopInfiniteScroll, setStopInfiniteScroll] = useState(false)
   const [loader, setLoader] = useState(false)
   useEffect(() => {
-    const fetchEvents = async (token: string) => {
+    const fetchEvents = async (token: string | null) => {
       try {
         const response = await fetch(
           process.env.NEXT_PUBLIC_API_URL + "/api/v2/meets?page=" + currentPage,

@@ -6,20 +6,15 @@ import { useRouter } from "next/navigation"
 import Image from "next/image"
 import Loader from "@/components/common/loader/formValidation/loader"
 import { useState } from "react"
+import { useAuth } from "@/app/context/AuthContext"
 
 export interface EventAddModalProps {
-  user: User
   isOpen: boolean
   close: any
-  token: string
 }
 
-const EventAddModal: React.FC<EventAddModalProps> = ({
-  user,
-  token,
-  isOpen,
-  close,
-}) => {
+const EventAddModal: React.FC<EventAddModalProps> = ({ isOpen, close }) => {
+  const { user, token } = useAuth()
   const [loader, setLoader] = useState(false)
   const [error, setError] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState("")
@@ -39,7 +34,10 @@ const EventAddModal: React.FC<EventAddModalProps> = ({
 
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_API_URL + "/api/v2/users/" + user.id + "/meets",
+        process.env.NEXT_PUBLIC_API_URL +
+          "/api/v2/users/" +
+          user?.id +
+          "/meets",
         {
           method: "POST",
           headers: {

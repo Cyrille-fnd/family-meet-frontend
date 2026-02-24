@@ -9,18 +9,14 @@ import EventAddModal from "@/components/event/eventAddModal/eventAddModal"
 
 interface EventsViewProps {
   events: Event[]
-  user: User
-  token: string
 }
 
-const EventsView: React.FC<EventsViewProps> = ({ events, user, token }) => {
+const EventsView: React.FC<EventsViewProps> = ({ events }) => {
   const [isEventAddModalOpen, setEventAddModalOpen] = useState(false)
 
   return (
     <div className={s.container}>
       <EventAddModal
-        user={user}
-        token={token}
         isOpen={isEventAddModalOpen}
         close={() => setEventAddModalOpen(false)}
       />
@@ -35,7 +31,7 @@ const EventsView: React.FC<EventsViewProps> = ({ events, user, token }) => {
       <div className={s.listContainer}>
         <h1>Événements à venir:</h1>
         {events.length > 0 ? (
-          <EventsList events={events} token={token} />
+          <EventsList events={events} />
         ) : (
           <p> Aucun événement à venir</p>
         )}

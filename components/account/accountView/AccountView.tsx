@@ -4,11 +4,7 @@ import s from "./account.module.css"
 import Image from "next/image"
 import SideMenu from "../../common/sideMenu/sideMenu"
 import Button from "@/components/form/button/button"
-
-interface AccountViewProps {
-  user: User
-  token: string
-}
+import { useAuth } from "@/app/context/AuthContext"
 
 const getAge = (birthdate: string): number => {
   var month_diff = Date.now() - new Date(birthdate).getTime()
@@ -18,8 +14,9 @@ const getAge = (birthdate: string): number => {
   return Math.abs(year - 1970)
 }
 
-const AccountView: React.FC<AccountViewProps> = ({ user, token }) => {
-  const userAge = getAge(user.birthday)
+const AccountView: React.FC = () => {
+  const { user, token } = useAuth()
+  const userAge = user ? getAge(user.birthday) : 0
   const [uploadedPicture, setUploadedPicture] = useState<any>()
   const [showSubmit, setShowSubmit] = useState(false)
 
@@ -50,7 +47,7 @@ const AccountView: React.FC<AccountViewProps> = ({ user, token }) => {
       const response = await fetch(
         process.env.NEXT_PUBLIC_API_URL +
           "/api/v2/users/" +
-          user.id +
+          user?.id +
           "/upload",
         requestOptions
       )
@@ -64,6 +61,8 @@ const AccountView: React.FC<AccountViewProps> = ({ user, token }) => {
       console.error("Error uploading file:", error)
     }
   }
+
+  if (!user) return null
 
   return (
     <div className={s.container}>
