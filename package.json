@@ -1,9 +1,9 @@
 {
-  "name": "family-meet-frontend",
+"name": "family-meet-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --experimental-https --experimental-https-cert ./caddy-root.crt",
+    "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 next dev --experimental-https --experimental-https-cert ./caddy-root.crt",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
