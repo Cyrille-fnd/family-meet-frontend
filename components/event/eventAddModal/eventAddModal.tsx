@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useRef, useEffect } from "react"
 import s from "./eventAddModal.module.css"
 import Input from "@/components/form/input/Input"
 import Button from "@/components/form/button/button"
@@ -10,7 +11,7 @@ import { useAuth } from "@/app/context/AuthContext"
 
 export interface EventAddModalProps {
   isOpen: boolean
-  close: any
+  close: () => void
 }
 
 const EventAddModal: React.FC<EventAddModalProps> = ({ isOpen, close }) => {
@@ -19,6 +20,42 @@ const EventAddModal: React.FC<EventAddModalProps> = ({ isOpen, close }) => {
   const [error, setError] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState("")
   const router = useRouter()
+  const modalRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!isOpen) return
+    const modal = modalRef.current
+    if (!modal) return
+
+    const focusable = modal.querySelectorAll<HTMLElement>(
+      'button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    first?.focus()
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        close()
+        return
+      }
+      if (e.key !== "Tab") return
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault()
+          last?.focus()
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault()
+          first?.focus()
+        }
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown)
+    return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [isOpen, close])
 
   const handleChange = (event: React.FormEvent<HTMLSelectElement>) => {
     setSelectedCategory(event.currentTarget.value)
@@ -78,8 +115,16 @@ const EventAddModal: React.FC<EventAddModalProps> = ({ isOpen, close }) => {
     isOpen && (
       <div className={s.modal}>
         <div className={s.overlay} onClick={close} />
-        <div className={s.modalContent}>
-          <h1 className={s.formTitle}>Créer un événement</h1>
+        <div
+          ref={modalRef}
+          className={s.modalContent}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="event-add-modal-title"
+        >
+          <h1 id="event-add-modal-title" className={s.formTitle}>
+            Créer un événement
+          </h1>
           {error && (
             <h1 className={s.errorMessage}>Something went wrong ! try again</h1>
           )}
@@ -128,13 +173,17 @@ const EventAddModal: React.FC<EventAddModalProps> = ({ isOpen, close }) => {
             </div>
           </form>
 
-          <button className={s.closeModal} onClick={handleClose}>
+          <button
+            className={s.closeModal}
+            onClick={handleClose}
+            aria-label="Fermer"
+          >
             <Image
               priority={true}
               src={"/icon-cancel-cross.png"}
               width={25}
               height={20}
-              alt={"cancel-icon"}
+              alt=""
             />
           </button>
         </div>

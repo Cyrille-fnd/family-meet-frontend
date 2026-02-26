@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useRef, useEffect } from "react"
 import s from "./registerModal.module.css"
 import Input from "@/components/form/input/Input"
 import Button from "@/components/form/button/button"
@@ -9,7 +10,7 @@ import Loader from "@/components/common/loader/formValidation/loader"
 
 export interface RegisterModalProps {
   isOpen: boolean
-  close: any
+  close: () => void
 }
 
 const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, close }) => {
@@ -17,6 +18,42 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, close }) => {
   const [loader, setLoader] = useState(false)
   const [error, setError] = useState(false)
   const [selectedSex, setSelectedSex] = useState("")
+  const modalRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!isOpen) return
+    const modal = modalRef.current
+    if (!modal) return
+
+    const focusable = modal.querySelectorAll<HTMLElement>(
+      'button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    first?.focus()
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        close()
+        return
+      }
+      if (e.key !== "Tab") return
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault()
+          last?.focus()
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault()
+          first?.focus()
+        }
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown)
+    return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [isOpen, close])
 
   const handleChange = (event: React.FormEvent<HTMLSelectElement>) => {
     setSelectedSex(event.currentTarget.value)
@@ -65,8 +102,16 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, close }) => {
     isOpen && (
       <div className={s.modal}>
         <div className={s.overlay} onClick={close} />
-        <div className={s.modalContent}>
-          <h1 className={s.formTitle}>Créer votre compte</h1>
+        <div
+          ref={modalRef}
+          className={s.modalContent}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="register-modal-title"
+        >
+          <h1 id="register-modal-title" className={s.formTitle}>
+            Créer votre compte
+          </h1>
           <form
             className={s.modalForm}
             onSubmit={handleSubmit}
@@ -104,13 +149,13 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, close }) => {
             <h1 className={s.errorMessage}>Something went wrong ! try again</h1>
           )}
 
-          <button className={s.closeModal} onClick={close}>
+          <button className={s.closeModal} onClick={close} aria-label="Fermer">
             <Image
               priority={true}
               src={"/icon-cancel-cross.png"}
               width={25}
               height={20}
-              alt={"cancel-icon"}
+              alt=""
             />
           </button>
         </div>
