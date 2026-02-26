@@ -17,7 +17,7 @@ const getAge = (birthdate: string): number => {
 const AccountView: React.FC = () => {
   const { user, token } = useAuth()
   const userAge = user ? getAge(user.birthday) : 0
-  const [uploadedPicture, setUploadedPicture] = useState<any>()
+  const [uploadedPicture, setUploadedPicture] = useState<File | null>(null)
   const [showSubmit, setShowSubmit] = useState(false)
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

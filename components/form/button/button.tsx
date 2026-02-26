@@ -5,7 +5,7 @@ export interface ButtonProps {
   form?: string
   type: "button" | "submit" | "reset" | undefined
   value: string
-  onclick?: any
+  onclick?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const Button: React.FC<ButtonProps> = ({

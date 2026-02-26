@@ -58,7 +58,7 @@ const EventsList: React.FC<EventInfosProps> = ({ events }) => {
 
   return (
     <>
-      {eventList.map((event: any, index: number, events: any) => (
+      {eventList.map((event: Event, index: number, events: Event[]) => (
         <div className={s.superContainer} key={event.id + nanoid()}>
           {typeof events[index - 1] === "undefined" ||
           new Date(event.date).getDate() !==
