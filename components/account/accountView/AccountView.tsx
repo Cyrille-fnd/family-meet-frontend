@@ -30,6 +30,8 @@ const AccountView: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    if (!uploadedPicture) return
+
     const formData = new FormData()
     formData.append("profilePicture", uploadedPicture)
 
