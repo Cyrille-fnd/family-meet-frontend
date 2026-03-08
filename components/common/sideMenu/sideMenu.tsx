@@ -1,108 +1,82 @@
 import React from "react"
 import s from "./sideMenu.module.css"
+import Link from "next/link"
 import Image from "next/image"
 
-interface SideMenuProps {
+export interface SideMenuProps {
   currentPage: "Home" | "Profile" | "My events" | "Messages" | "Members"
 }
 
+const NAV_ITEMS = [
+  {
+    key: "Home",
+    label: "Accueil",
+    href: "/events",
+    icon: "/icon-home.png",
+    alt: "Accueil",
+  },
+  {
+    key: "Profile",
+    label: "Mon profil",
+    href: "/account",
+    icon: "/icon-user-dark.png",
+    alt: "Profil",
+  },
+  {
+    key: "My events",
+    label: "Mes sorties",
+    href: "#",
+    icon: "/icon-calendar.png",
+    alt: "Sorties",
+  },
+  {
+    key: "Messages",
+    label: "Messages",
+    href: "#",
+    icon: "/icon-messages.png",
+    alt: "Messages",
+  },
+  {
+    key: "Members",
+    label: "Membres",
+    href: "#",
+    icon: "/icon-members.png",
+    alt: "Membres",
+  },
+] as const
+
 const SideMenu: React.FC<SideMenuProps> = ({ currentPage }) => {
   return (
-    <>
-      <div className={s.container}>
-        <ul>
-          <li>
-            <Image
-              priority={true}
-              src={"/FAMILY.png"}
-              width={150}
-              height={150}
-              alt={"family-logo"}
-            />
-          </li>
-          <li className={s.li}>
-            <Image
-              priority={true}
-              src={"/icon-home.png"}
-              width={25}
-              height={20}
-              alt={"home-icon"}
-            />
-            {currentPage === "Home" ? (
-              <a className={s.boldTextli}>Accueil</a>
-            ) : (
-              <a className={s.textli} href="/events">
-                Accueil
-              </a>
-            )}
-          </li>
-          <li className={s.li}>
-            <Image
-              priority={true}
-              src={"/icon-user-dark.png"}
-              width={25}
-              height={20}
-              alt={"user-icon"}
-            />
-            {currentPage === "Profile" ? (
-              <a className={s.boldTextli}>Mon profil</a>
-            ) : (
-              <a className={s.textli} href="/account">
-                Mon profil
-              </a>
-            )}
-          </li>
-          <li className={s.li}>
-            <Image
-              priority={true}
-              src={"/icon-calendar.png"}
-              width={25}
-              height={20}
-              alt={"icon-calendar"}
-            />
-            {currentPage === "My events" ? (
-              <a className={s.boldTextli}>Mes sorties</a>
-            ) : (
-              <a className={s.textli} href="#">
-                Mes sorties
-              </a>
-            )}
-          </li>
-          <li className={s.li}>
-            <Image
-              priority={true}
-              src={"/icon-messages.png"}
-              width={25}
-              height={20}
-              alt={"messages-icon"}
-            />
-            {currentPage === "Messages" ? (
-              <a className={s.boldTextli}>Mes messages</a>
-            ) : (
-              <a className={s.textli} href="#">
-                Mes messages
-              </a>
-            )}
-          </li>
-          <li className={s.li}>
-            <Image
-              priority={true}
-              src={"/icon-members.png"}
-              width={25}
-              height={20}
-              alt={"members-icon"}
-            />
-            {currentPage === "Members" ? (
-              <a className={s.boldTextli}>Membres</a>
-            ) : (
-              <a className={s.textli} href="#">
-                Membres
-              </a>
-            )}
-          </li>
-        </ul>
-      </div>
-    </>
+    <aside className={s.container}>
+      <Link href="/events" className={s.brand}>
+        <Image
+          priority
+          src="/FAMILY.png"
+          width={40}
+          height={40}
+          alt="Family Meet"
+          className={s.brandLogo}
+        />
+        <span className={s.brandName}>Family Meet</span>
+      </Link>
+
+      <nav className={s.nav} aria-label="Navigation principale">
+        {NAV_ITEMS.map(({ key, label, href, icon, alt }) => {
+          const isActive = currentPage === key
+          return (
+            <Link
+              key={key}
+              href={href}
+              className={[s.navItem, isActive ? s.navItemActive : ""].join(" ")}
+              aria-current={isActive ? "page" : undefined}
+            >
+              <Image src={icon} width={22} height={22} alt={alt} />
+              <span>{label}</span>
+            </Link>
+          )
+        })}
+      </nav>
+    </aside>
   )
 }
 

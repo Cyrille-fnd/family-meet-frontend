@@ -1,90 +1,63 @@
-body.active-modal {
-    overflow-y: hidden;
-}
-
-.btnModal {
-    padding: var(--space-2) var(--space-4);
-    display: block;
-    margin: var(--space-10) auto 0;
-    font-size: var(--font-size-modal-trigger);
-}
-
-.modal, .overlay {
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: fixed;
-}
-
-.overlay {
-    background: var(--color-overlay);
-}
-
-.modalContent {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 40%;
-    transform: translate(-50%, -50%);
-    line-height: 1.4;
-    background: var(--color-white);
-    padding: var(--space-5) var(--space-9);
-    border-radius: var(--radius-md);
-    max-width: 600px;
-    min-width: 300px;
-    height: 80%;
-    overflow-y: scroll;
-}
-
-.modalForm {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-}
-
-.closeModal {
-    position: absolute;
-    top: var(--space-2);
-    right: var(--space-2);
-    padding: var(--space-1) 7px;
-}
-
-.formTitle {
-    font-family: "Verdana";
-    font-size: var(--font-size-lg);
-    font-weight: bold;
-    margin-bottom: var(--space-3);
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .errorMessage {
-    display: none;
-    color: var(--color-error);
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  background: color-mix(in srgb, var(--color-error) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-error) 30%, transparent);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
-.submitContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: var(--space-3);
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  margin-bottom: var(--space-2);
 }
 
-.select {
-    box-sizing: border-box;
-    padding-left: var(--space-2);
-    padding-right: var(--space-2);
-    border: 1px solid var(--color-gray-border);
-    border-radius: var(--radius-sm);
-    width: 100%;
-    height: var(--size-input-height);
-    margin-top: var(--space-2);
-    margin-bottom: var(--space-2);
+.fieldLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+}
+
+/* Chips catégories */
+.categoryChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1-5);
+}
+
+.chip {
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid;
+  background: var(--color-bg-surface);
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.chip:hover {
+  opacity: 0.85;
+}
+
+.chipActive {
+  color: var(--color-text-inverse) !important;
+}
+
+.submitRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
 }

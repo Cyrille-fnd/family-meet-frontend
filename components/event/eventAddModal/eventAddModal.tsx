@@ -1,12 +1,12 @@
+"use client"
 import * as React from "react"
-import { useRef, useEffect } from "react"
+import { useState } from "react"
 import s from "./eventAddModal.module.css"
 import Input from "@/components/form/input/Input"
 import Button from "@/components/form/button/button"
-import { useRouter } from "next/navigation"
-import Image from "next/image"
+import Modal from "@/components/common/modal/Modal"
 import Loader from "@/components/common/loader/formValidation/loader"
-import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { useAuth } from "@/app/context/AuthContext"
 
 export interface EventAddModalProps {
@@ -14,59 +14,32 @@ export interface EventAddModalProps {
   close: () => void
 }
 
+const CATEGORIES = [
+  { value: "bar", label: "Bar", color: "var(--color-cat-bar)" },
+  { value: "sport", label: "Sport", color: "var(--color-cat-sport)" },
+  {
+    value: "restaurant",
+    label: "Restaurant",
+    color: "var(--color-cat-restaurant)",
+  },
+  { value: "cinema", label: "Cinéma", color: "var(--color-cat-cinema)" },
+  { value: "voyage", label: "Voyage", color: "var(--color-cat-voyage)" },
+  { value: "travail", label: "Travail", color: "var(--color-cat-travail)" },
+  { value: "clubbing", label: "Clubbing", color: "var(--color-cat-clubbing)" },
+] as const
+
 const EventAddModal: React.FC<EventAddModalProps> = ({ isOpen, close }) => {
   const { user, token } = useAuth()
   const [loader, setLoader] = useState(false)
   const [error, setError] = useState(false)
-  const [selectedCategory, setSelectedCategory] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("bar")
   const router = useRouter()
-  const modalRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!isOpen) return
-    const modal = modalRef.current
-    if (!modal) return
-
-    const focusable = modal.querySelectorAll<HTMLElement>(
-      'button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    )
-    const first = focusable[0]
-    const last = focusable[focusable.length - 1]
-    first?.focus()
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        close()
-        return
-      }
-      if (e.key !== "Tab") return
-      if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault()
-          last?.focus()
-        }
-      } else {
-        if (document.activeElement === last) {
-          e.preventDefault()
-          first?.focus()
-        }
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [isOpen, close])
-
-  const handleChange = (event: React.FormEvent<HTMLSelectElement>) => {
-    setSelectedCategory(event.currentTarget.value)
-  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setError(false)
     setLoader(true)
     const formData = new FormData(event.currentTarget)
-
     formData.append("category", selectedCategory)
 
     try {
@@ -97,7 +70,7 @@ const EventAddModal: React.FC<EventAddModalProps> = ({ isOpen, close }) => {
         return
       }
 
-      handleClose()
+      close()
       router.refresh()
     } catch {
       setError(true)
@@ -106,89 +79,93 @@ const EventAddModal: React.FC<EventAddModalProps> = ({ isOpen, close }) => {
     }
   }
 
-  const handleClose = () => {
-    setLoader((prevState) => !prevState)
-    close()
-  }
-
   return (
-    isOpen && (
-      <div className={s.modal}>
-        <div className={s.overlay} onClick={close} />
-        <div
-          ref={modalRef}
-          className={s.modalContent}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="event-add-modal-title"
-        >
-          <h1 id="event-add-modal-title" className={s.formTitle}>
-            Créer un événement
-          </h1>
-          {error && (
-            <h1 className={s.errorMessage}>Something went wrong ! try again</h1>
-          )}
-          <form
-            className={s.modalForm}
-            onSubmit={handleSubmit}
-            id="eventAddForm"
-          >
-            <Input name="title" placeholder="Titre" />
-            <Input
-              name="description"
-              type="textarea"
-              placeholder="Description"
-            />
-            <Input name="location" placeholder="Lieu" />
-            <Input
-              name="date"
-              type="datetime-local"
-              min={new Date().toISOString().slice(0, -8)}
-            />
-            <label>
-              Catégorie :
-              <select
-                name="category"
-                value={selectedCategory}
-                onChange={handleChange}
-                className={s.select}
-              >
-                <option value="travail">travail</option>
-                <option value="bar">bar</option>
-                <option value="clubbing">clubbing</option>
-                <option value="sport">sport</option>
-                <option value="voyage">voyage</option>
-                <option value="cinema">cinéma</option>
-                <option value="restaurant">restaurant</option>
-              </select>
-            </label>
-            <Input name="participantMax" type="number" min="1" />
-            <div className={s.submitContainer}>
-              <Button
-                type="submit"
-                form="eventAddForm"
-                value="Créer l'événement"
-              />
-              {loader && <Loader />}
-            </div>
-          </form>
+    <Modal
+      isOpen={isOpen}
+      close={close}
+      title="Créer un événement"
+      titleId="event-add-modal-title"
+      size="lg"
+    >
+      {error && (
+        <p className={s.errorMessage} role="alert">
+          Une erreur est survenue. Veuillez réessayer.
+        </p>
+      )}
+      <form className={s.form} onSubmit={handleSubmit} id="eventAddForm">
+        <Input
+          name="title"
+          placeholder="Titre de l'événement"
+          label="Titre"
+          required
+        />
+        <Input
+          name="description"
+          type="textarea"
+          placeholder="Décrivez votre événement…"
+          label="Description"
+        />
+        <Input
+          name="location"
+          placeholder="Adresse ou lieu"
+          label="Lieu"
+          required
+        />
+        <Input
+          name="date"
+          type="datetime-local"
+          label="Date et heure"
+          min={new Date().toISOString().slice(0, -8)}
+          required
+        />
 
-          <button
-            className={s.closeModal}
-            onClick={handleClose}
-            aria-label="Fermer"
-          >
-            <Image
-              priority={true}
-              src={"/icon-cancel-cross.png"}
-              width={25}
-              height={20}
-              alt=""
-            />
-          </button>
+        <div className={s.fieldGroup}>
+          <span className={s.fieldLabel}>Catégorie</span>
+          <div className={s.categoryChips} role="group" aria-label="Catégorie">
+            {CATEGORIES.map(({ value, label, color }) => (
+              <button
+                key={value}
+                type="button"
+                className={[
+                  s.chip,
+                  selectedCategory === value ? s.chipActive : "",
+                ].join(" ")}
+                style={
+                  selectedCategory === value
+                    ? { backgroundColor: color, borderColor: color }
+                    : { borderColor: color, color }
+                }
+                onClick={() => setSelectedCategory(value)}
+                aria-pressed={selectedCategory === value}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
-    )
+
+        <Input
+          name="participantMax"
+          type="number"
+          label="Nombre max de participants"
+          min="1"
+          required
+        />
+
+        <div className={s.submitRow}>
+          <Button
+            type="submit"
+            form="eventAddForm"
+            value={loader ? "Création…" : "Créer l'événement"}
+            variant="primary"
+            size="lg"
+            fullWidth
+            disabled={loader}
+          />
+          {loader && <Loader />}
+        </div>
+      </form>
+    </Modal>
   )
 }
 

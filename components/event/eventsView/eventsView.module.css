@@ -1,39 +1,57 @@
-.container {
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-    margin-left: var(--space-10);
-    margin-right: var(--space-10);
+.pageContent {
+  padding: var(--space-6) var(--space-4);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.container Separator {
-    height: 100%;
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
 }
 
-.sideContainer {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+.pageTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-text-primary);
 }
 
-.sideContainer Button {
-    margin-top: var(--space-4);
-    width: 250px;
-    height: var(--size-input-height);
+.createButtonDesktop {
+  display: none;
 }
 
-.listContainer {
-    display: flex;
-    flex-direction: column;
-    margin-top: 35px;
-    margin-left: var(--space-6);
-    width: 60%;
+@media (min-width: 768px) {
+  .createButtonDesktop {
+    display: block;
+  }
 }
 
-.listContainer h1 {
-    font-size: xx-large;
-    font-weight: bold;
+/* Empty state */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-10) var(--space-4);
+  gap: var(--space-3);
 }
 
+.emptyEmoji {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.emptyTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.emptySubtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin: 0;
+}

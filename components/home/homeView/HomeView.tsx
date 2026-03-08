@@ -15,12 +15,19 @@ const RegisterModal = dynamic(
   { ssr: false }
 )
 
+const MOSAIC_IMAGES = [
+  { src: "/image-sport.jpg", alt: "Sortie sport" },
+  { src: "/image-voyage.jpg", alt: "Voyage en famille" },
+  { src: "/image-restaurant.jpg", alt: "Repas en famille" },
+  { src: "/image-bar.jpg", alt: "Soirée entre proches" },
+]
+
 const HomeView: React.FC = () => {
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false)
   const [isLoginModalOpen, setLoginModalOpen] = useState(false)
 
   return (
-    <div className={s.container}>
+    <div className={s.page}>
       <RegisterModal
         isOpen={isRegisterModalOpen}
         close={() => setRegisterModalOpen(false)}
@@ -29,37 +36,80 @@ const HomeView: React.FC = () => {
         isOpen={isLoginModalOpen}
         close={() => setLoginModalOpen(false)}
       />
-      <div className={s.blocksContainer}>
-        <div className={s.imageContainer}>
+
+      {/* Barre de navigation */}
+      <header className={s.topBar}>
+        <div className={s.brand}>
           <Image
-            priority={true}
-            src={"/FAMILY.png"}
-            width={500}
-            height={500}
-            alt={"family-logo"}
+            priority
+            src="/FAMILY.png"
+            width={36}
+            height={36}
+            alt="Family Meet"
+            className={s.brandLogo}
           />
+          <span className={s.brandName}>Family Meet</span>
         </div>
-        <div className={s.ctaContainer}>
-          <h1 className={s.title}>Le site pour la famille</h1>
-          <h1 className={s.registerText}>Inscrivez-vous.</h1>
-          <Button
-            type="button"
-            value="Créer un compte"
-            onclick={() => setRegisterModalOpen(true)}
-          />
-          <p className={s.conditionsText}>
+      </header>
+
+      {/* Hero */}
+      <section className={s.hero}>
+        <div className={s.textBlock}>
+          <h1 className={s.tagline}>
+            Le lieu de <em className={s.taglineAccent}>votre</em> famille
+          </h1>
+          <p className={s.subtagline}>
+            Organisez vos sorties, partagez vos moments et retrouvez votre
+            famille en un seul endroit.
+          </p>
+
+          <div className={s.ctaGroup}>
+            <Button
+              type="button"
+              value="Créer un compte"
+              variant="primary"
+              size="lg"
+              fullWidth
+              onclick={() => setRegisterModalOpen(true)}
+            />
+            <Button
+              type="button"
+              value="Se connecter"
+              variant="secondary"
+              size="lg"
+              fullWidth
+              onclick={() => setLoginModalOpen(true)}
+            />
+          </div>
+
+          <p className={s.legalText}>
             En vous inscrivant, vous acceptez les Conditions d&apos;utilisation
             et la Politique de confidentialité, notamment l&apos;utilisation des
             cookies.
           </p>
-          <h1 className={s.loginText}>Vous avez déja un compte ?</h1>
-          <Button
-            type="button"
-            value="Se connecter"
-            onclick={() => setLoginModalOpen(true)}
-          />
         </div>
-      </div>
+
+        {/* Mosaïque d'images (desktop uniquement) */}
+        <div className={s.mosaic} aria-hidden="true">
+          {MOSAIC_IMAGES.map(({ src, alt }, i) => (
+            <div
+              key={src}
+              className={[
+                s.mosaicItem,
+                i % 2 !== 0 ? s.mosaicItemOffset : "",
+              ].join(" ")}
+            >
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                sizes="(min-width: 768px) 200px, 0px"
+                className={s.mosaicImage}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }

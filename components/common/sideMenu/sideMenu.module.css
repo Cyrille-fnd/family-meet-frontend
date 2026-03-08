@@ -1,27 +1,73 @@
 .container {
-    padding-right: var(--space-4);
-    width: var(--size-side-menu-width);
+  width: var(--size-side-menu-width);
+  min-height: 100vh;
+  padding: var(--space-4) var(--space-2);
+  border-right: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.li {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-size: var(--font-size-md);
-    padding: var(--space-3);
-
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-6);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: background 150ms ease;
 }
 
-.li:hover {
-    background-color: var(--color-gray-hover);
-    border-radius: var(--radius-lg);
+.brand:hover {
+  background: var(--color-bg-muted);
 }
 
-.textli {
-    margin-left: var(--space-4);
+.brandLogo {
+  border-radius: var(--radius-sm);
+  object-fit: contain;
 }
 
-.boldTextli {
-    margin-left: var(--space-4);
-    font-weight: bold;
+.brandName {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-text-primary);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 10px var(--space-3);
+  border-radius: var(--radius-md);
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.navItem:hover {
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
+}
+
+.navItemActive {
+  background: var(--color-primary-surface);
+  color: var(--color-primary);
+  border-left-color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.navItemActive:hover {
+  background: var(--color-primary-surface);
+  color: var(--color-primary);
 }

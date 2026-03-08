@@ -1,24 +1,95 @@
 .button {
-    border: 0;
-    line-height: 2.5;
-    padding: 0 var(--space-4);
-    font-size: var(--font-size-base);
-    font-weight: bold;
-    text-align: center;
-    color: var(--color-white);
-    border-radius: var(--radius-pill);
-    background-color: var(--color-primary);
-    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
-    width: var(--size-button-width);
-
-}
-
-.button:hover {
-    background-color: var(--color-primary-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1-5);
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: inherit;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-base);
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 150ms ease, box-shadow 150ms ease, transform 80ms ease, border-color 150ms ease;
 }
 
 .button:active {
-    box-shadow:
-            inset -2px -2px 3px rgba(255, 255, 255, 0.6),
-            inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+  transform: scale(0.98);
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Tailles */
+.sm {
+  padding: 8px 16px;
+  font-size: var(--font-size-sm);
+}
+
+.md {
+  padding: 12px 24px;
+  font-size: var(--font-size-base);
+}
+
+.lg {
+  padding: 16px 32px;
+  font-size: var(--font-size-md);
+}
+
+/* Variantes */
+.primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-color: var(--color-primary);
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  box-shadow: var(--shadow-md);
+}
+
+.secondary {
+  background-color: var(--color-bg-surface);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: var(--color-primary-surface);
+}
+
+.ghost {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border-color: transparent;
+}
+
+.ghost:hover:not(:disabled) {
+  background-color: var(--color-bg-muted);
+}
+
+.danger {
+  background-color: var(--color-error);
+  color: var(--color-text-inverse);
+  border-color: var(--color-error);
+}
+
+.danger:hover:not(:disabled) {
+  opacity: 0.9;
+  box-shadow: var(--shadow-md);
+}
+
+/* Modificateur pleine largeur */
+.fullWidth {
+  width: 100%;
 }

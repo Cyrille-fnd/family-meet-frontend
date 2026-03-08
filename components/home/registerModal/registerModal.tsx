@@ -1,12 +1,12 @@
+"use client"
 import * as React from "react"
-import { useRef, useEffect } from "react"
+import { useState } from "react"
 import s from "./registerModal.module.css"
 import Input from "@/components/form/input/Input"
 import Button from "@/components/form/button/button"
-import { useRouter } from "next/navigation"
-import Image from "next/image"
-import { useState } from "react"
+import Modal from "@/components/common/modal/Modal"
 import Loader from "@/components/common/loader/formValidation/loader"
+import { useRouter } from "next/navigation"
 
 export interface RegisterModalProps {
   isOpen: boolean
@@ -17,55 +17,13 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, close }) => {
   const router = useRouter()
   const [loader, setLoader] = useState(false)
   const [error, setError] = useState(false)
-  const [selectedSex, setSelectedSex] = useState("")
-  const modalRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!isOpen) return
-    const modal = modalRef.current
-    if (!modal) return
-
-    const focusable = modal.querySelectorAll<HTMLElement>(
-      'button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    )
-    const first = focusable[0]
-    const last = focusable[focusable.length - 1]
-    first?.focus()
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        close()
-        return
-      }
-      if (e.key !== "Tab") return
-      if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault()
-          last?.focus()
-        }
-      } else {
-        if (document.activeElement === last) {
-          e.preventDefault()
-          first?.focus()
-        }
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [isOpen, close])
-
-  const handleChange = (event: React.FormEvent<HTMLSelectElement>) => {
-    setSelectedSex(event.currentTarget.value)
-  }
+  const [selectedSex, setSelectedSex] = useState("male")
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
     setError(false)
     setLoader(true)
     const formData = new FormData(event.currentTarget)
-
     formData.append("sex", selectedSex)
 
     try {
@@ -99,68 +57,93 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, close }) => {
   }
 
   return (
-    isOpen && (
-      <div className={s.modal}>
-        <div className={s.overlay} onClick={close} />
-        <div
-          ref={modalRef}
-          className={s.modalContent}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="register-modal-title"
-        >
-          <h1 id="register-modal-title" className={s.formTitle}>
-            Créer votre compte
-          </h1>
-          <form
-            className={s.modalForm}
-            onSubmit={handleSubmit}
-            id="registerForm"
-          >
-            <Input name="email" placeholder="Email" />
-            <Input name="password" type="password" placeholder="Mot de passe" />
-            <label>
-              Sexe
-              <select
-                name="sex"
-                value={selectedSex}
-                onChange={handleChange}
-                className={s.select}
-              >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            </label>
-            <Input name="firstname" placeholder="Prénom" />
-            <Input name="lastname" placeholder="Nom" />
-            <Input name="bio" placeholder="Bio" />
-            <Input name="birthday" type="date" />
-            <Input name="city" placeholder="Ville" />
-            <div className={s.submitContainer}>
-              <Button
-                type="submit"
-                form="registerForm"
-                value="Créer mon compte"
-              />
-              {loader && <Loader />}
-            </div>
-          </form>
-          {error && (
-            <h1 className={s.errorMessage}>Something went wrong ! try again</h1>
-          )}
+    <Modal
+      isOpen={isOpen}
+      close={close}
+      title="Créer votre compte"
+      titleId="register-modal-title"
+      size="lg"
+    >
+      {error && (
+        <p className={s.errorMessage} role="alert">
+          Une erreur est survenue. Veuillez réessayer.
+        </p>
+      )}
+      <form className={s.form} onSubmit={handleSubmit} id="registerForm">
+        <Input
+          name="email"
+          type="email"
+          placeholder="Email"
+          label="Email"
+          required
+        />
+        <Input
+          name="password"
+          type="password"
+          placeholder="Mot de passe"
+          label="Mot de passe"
+          required
+        />
 
-          <button className={s.closeModal} onClick={close} aria-label="Fermer">
-            <Image
-              priority={true}
-              src={"/icon-cancel-cross.png"}
-              width={25}
-              height={20}
-              alt=""
-            />
-          </button>
+        <div className={s.fieldGroup}>
+          <label className={s.fieldLabel}>Genre</label>
+          <div className={s.sexToggle}>
+            <button
+              type="button"
+              className={[
+                s.sexBtn,
+                selectedSex === "male" ? s.sexBtnActive : "",
+              ].join(" ")}
+              onClick={() => setSelectedSex("male")}
+            >
+              Homme
+            </button>
+            <button
+              type="button"
+              className={[
+                s.sexBtn,
+                selectedSex === "female" ? s.sexBtnActive : "",
+              ].join(" ")}
+              onClick={() => setSelectedSex("female")}
+            >
+              Femme
+            </button>
+          </div>
         </div>
-      </div>
-    )
+
+        <div className={s.row}>
+          <Input
+            name="firstname"
+            placeholder="Prénom"
+            label="Prénom"
+            required
+          />
+          <Input name="lastname" placeholder="Nom" label="Nom" required />
+        </div>
+
+        <Input
+          name="bio"
+          type="textarea"
+          placeholder="Parlez un peu de vous…"
+          label="Bio"
+        />
+        <Input name="birthday" type="date" label="Date de naissance" required />
+        <Input name="city" placeholder="Ville" label="Ville" required />
+
+        <div className={s.submitRow}>
+          <Button
+            type="submit"
+            form="registerForm"
+            value={loader ? "Inscription…" : "Créer mon compte"}
+            variant="primary"
+            size="lg"
+            fullWidth
+            disabled={loader}
+          />
+          {loader && <Loader />}
+        </div>
+      </form>
+    </Modal>
   )
 }
 

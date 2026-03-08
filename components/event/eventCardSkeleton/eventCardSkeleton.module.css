@@ -1,0 +1,78 @@
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.card {
+  display: block;
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.imageBlock {
+  width: 100%;
+  height: var(--size-card-image-height);
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-muted) 25%,
+    var(--color-border) 50%,
+    var(--color-bg-muted) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+.body {
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  border-left: 3px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.titleLine,
+.metaLine,
+.metaLineShort,
+.barTrack {
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-muted) 25%,
+    var(--color-border) 50%,
+    var(--color-bg-muted) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+.titleLine {
+  height: 18px;
+  width: 70%;
+}
+
+.metaLine {
+  height: 13px;
+  width: 55%;
+}
+
+.metaLineShort {
+  height: 13px;
+  width: 40%;
+}
+
+.barTrack {
+  height: 4px;
+  width: 100%;
+  margin-top: var(--space-1);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  width: 45%;
+  background: var(--color-primary-light);
+  border-radius: var(--radius-pill);
+}

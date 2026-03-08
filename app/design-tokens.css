@@ -8,70 +8,126 @@
   /* ----------------------------------------------------------
      Couleurs — Marque
      ---------------------------------------------------------- */
-  --color-primary:        #bd77ec;
-  --color-primary-dark:   #ae5aea;
+  --color-primary:          #e8856a;   /* terracotta chaleureux */
+  --color-primary-dark:     #d06a50;
+  --color-primary-light:    #f5c4b5;
+  --color-primary-surface:  #fdf1ee;
 
   /* ----------------------------------------------------------
-     Couleurs — Neutres
+     Couleurs — Accent
      ---------------------------------------------------------- */
-  --color-white:          #ffffff;
-  --color-black:          #000000;
-  --color-gray-muted:     #838383;
-  --color-gray-secondary: #666666;
-  --color-gray-hover:     #e6e6e6;
-  --color-gray-separator: #f1f1f1;
-  --color-gray-loader:    #f3f3f3;
-  --color-gray-border:    darkgrey;
-  --color-gray-light:     lightgray;
+  --color-accent:           #7baf9e;   /* sauge doux */
+  --color-accent-dark:      #5c9082;
+  --color-accent-light:     #c8e0da;
+
+  /* ----------------------------------------------------------
+     Couleurs — Fonds
+     ---------------------------------------------------------- */
+  --color-bg-page:          #fdfaf8;
+  --color-bg-surface:       #ffffff;
+  --color-bg-muted:         #f7f3f0;
+
+  /* ----------------------------------------------------------
+     Couleurs — Textes
+     ---------------------------------------------------------- */
+  --color-text-primary:     #2d2420;
+  --color-text-secondary:   #6b5d59;
+  --color-text-muted:       #a89490;
+  --color-text-inverse:     #ffffff;
+
+  /* ----------------------------------------------------------
+     Couleurs — Bordures
+     ---------------------------------------------------------- */
+  --color-border:           #ede5e2;
+  --color-border-strong:    #d4c8c4;
+  --color-border-focus:     #e8856a;
 
   /* ----------------------------------------------------------
      Couleurs — Sémantiques
      ---------------------------------------------------------- */
-  --color-error:          crimson;
-  --color-overlay:        rgba(49, 49, 49, 0.8);
+  --color-error:            #d94f3d;
+  --color-success:          #4a9e7a;
+  --color-overlay:          rgba(45, 36, 32, 0.6);
 
   /* ----------------------------------------------------------
-     Espacements (base 5px)
+     Couleurs — Catégories événements
      ---------------------------------------------------------- */
-  --space-1:    5px;
-  --space-2:   10px;
-  --space-3:   15px;
-  --space-4:   20px;
-  --space-5:   25px;
-  --space-6:   40px;
-  --space-7:   45px;
-  --space-8:   50px;
-  --space-9:   60px;
-  --space-10: 100px;
-
-  /* ----------------------------------------------------------
-     Tailles — Composants
-     ---------------------------------------------------------- */
-  --size-input-height:    50px;
-  --size-loader-sm:       30px;
-  --size-loader-md:       50px;
-  --size-button-width:    20rem;
-  --size-cta-container:   30rem;
-  --size-side-menu-width: 265px;
-
-  /* ----------------------------------------------------------
-     Bordures arrondies
-     ---------------------------------------------------------- */
-  --radius-sm:   4px;
-  --radius-md:   15px;
-  --radius-lg:   25px;
-  --radius-pill: 100px;
-  --radius-full: 50%;
+  --color-cat-bar:          #e8856a;
+  --color-cat-sport:        #7baf9e;
+  --color-cat-restaurant:   #e8a84f;
+  --color-cat-cinema:       #7b87c8;
+  --color-cat-voyage:       #a0c87b;
+  --color-cat-travail:      #c8a07b;
+  --color-cat-clubbing:     #c87ba0;
 
   /* ----------------------------------------------------------
      Typographie
      ---------------------------------------------------------- */
-  --font-size-xs:            x-small;
-  --font-size-base:          1rem;
-  --font-size-md:            large;
-  --font-size-lg:            x-large;
-  --font-size-xl:            xx-large;
-  --font-size-2xl:           xxx-large;
-  --font-size-modal-trigger: 18px;
+  --font-family:             'Nunito', sans-serif;
+
+  --font-size-xs:            0.75rem;    /* 12px — captions */
+  --font-size-sm:            0.875rem;   /* 14px — secondaire */
+  --font-size-base:          1rem;       /* 16px — corps */
+  --font-size-md:            1.125rem;   /* 18px — mis en avant */
+  --font-size-lg:            1.375rem;   /* 22px — sous-titres */
+  --font-size-xl:            1.75rem;    /* 28px — titres section */
+  --font-size-2xl:           2.25rem;    /* 36px — titres page */
+  --font-size-3xl:           3rem;       /* 48px — hero */
+  --font-size-modal-trigger: 1rem;
+
+  --line-height-tight:       1.2;
+  --line-height-base:        1.5;
+  --line-height-relaxed:     1.75;
+
+  --font-weight-regular:     400;
+  --font-weight-semibold:    600;
+  --font-weight-bold:        700;
+  --font-weight-extrabold:   800;
+
+  /* ----------------------------------------------------------
+     Espacements (base 5px)
+     ---------------------------------------------------------- */
+  --space-0-5:   2px;
+  --space-1:     5px;
+  --space-1-5:   7px;
+  --space-2:    10px;
+  --space-3:    15px;
+  --space-4:    20px;
+  --space-5:    25px;
+  --space-6:    40px;
+  --space-7:    45px;
+  --space-8:    50px;
+  --space-9:    60px;
+  --space-10:  100px;
+
+  /* ----------------------------------------------------------
+     Tailles — Composants
+     ---------------------------------------------------------- */
+  --size-input-height:       48px;
+  --size-button-height:      48px;
+  --size-side-menu-width:    260px;
+  --size-bottom-nav-height:  64px;
+  --size-card-image-height:  200px;
+  --size-loader-sm:          30px;
+  --size-loader-md:          50px;
+
+  /* ----------------------------------------------------------
+     Bordures arrondies
+     ---------------------------------------------------------- */
+  --radius-xs:   2px;
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-pill: 100px;
+  --radius-full: 50%;
+
+  /* ----------------------------------------------------------
+     Ombres
+     ---------------------------------------------------------- */
+  --shadow-sm:   0 1px 3px rgba(45, 36, 32, 0.08), 0 1px 2px rgba(45, 36, 32, 0.04);
+  --shadow-md:   0 4px 12px rgba(45, 36, 32, 0.10), 0 2px 4px rgba(45, 36, 32, 0.06);
+  --shadow-lg:   0 10px 32px rgba(45, 36, 32, 0.12), 0 4px 8px rgba(45, 36, 32, 0.06);
+  --shadow-card: 0 2px 8px rgba(45, 36, 32, 0.08);
 
 }

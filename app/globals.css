@@ -3,3 +3,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  line-height: var(--line-height-base);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

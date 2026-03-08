@@ -1,11 +1,14 @@
 import "./globals.css"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Nunito } from "next/font/google"
 import { AuthProvider } from "./context/AuthContext"
 import getCurrentUserData from "./services/user"
 import getToken from "./services/jwt"
 
-const inter = Inter({ subsets: ["latin"] })
+const nunito = Nunito({
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "800"],
+})
 
 export const metadata: Metadata = {
   title: "Family Meet",
@@ -22,8 +25,8 @@ export default async function RootLayout({
   const user = userData?.isLogged ? userData : null
 
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="fr">
+      <body className={nunito.className}>
         <AuthProvider user={user} token={token?.value ?? null}>
           {children}
         </AuthProvider>

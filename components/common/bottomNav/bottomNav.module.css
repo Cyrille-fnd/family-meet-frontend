@@ -1,0 +1,68 @@
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--size-bottom-nav-height);
+  background: var(--color-bg-surface);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 var(--space-2);
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 100;
+  box-shadow: 0 -2px 8px rgba(45, 36, 32, 0.06);
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 12px;
+  color: var(--color-text-muted);
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition: color 150ms ease;
+  min-width: 48px;
+}
+
+.navItem:hover,
+.navItemActive {
+  color: var(--color-primary);
+}
+
+.navIcon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.fab {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  font-size: 1.5rem;
+  line-height: 1;
+  font-weight: var(--font-weight-regular);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  flex-shrink: 0;
+}
+
+.fab:hover {
+  transform: scale(1.06);
+  box-shadow: var(--shadow-lg);
+}
+
+.fab:active {
+  transform: scale(0.96);
+}

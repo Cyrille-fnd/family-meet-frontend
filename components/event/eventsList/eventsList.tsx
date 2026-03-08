@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from "react"
 import s from "./eventsList.module.css"
 import EventCard from "../eventCard/eventCard"
-import { nanoid } from "nanoid"
 import Loader from "@/components/common/loader/infiniteScroll/loader"
 import { useAuth } from "@/app/context/AuthContext"
 
 interface EventInfosProps {
   events: Event[]
+}
+
+function groupEventsByDate(events: Event[]): [string, Event[]][] {
+  const groups: Record<string, Event[]> = {}
+  for (const event of events) {
+    const key = new Date(event.date).toLocaleDateString("fr-FR", {
+      weekday: "long",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })
+    if (!groups[key]) groups[key] = []
+    groups[key].push(event)
+  }
+  return Object.entries(groups)
 }
 
 const EventsList: React.FC<EventInfosProps> = ({ events }) => {
@@ -15,6 +29,7 @@ const EventsList: React.FC<EventInfosProps> = ({ events }) => {
   const [currentPage, setCurrentPage] = useState(2)
   const [stopInfiniteScroll, setStopInfiniteScroll] = useState(false)
   const [loader, setLoader] = useState(false)
+
   useEffect(() => {
     const fetchEvents = async (token: string | null) => {
       try {
@@ -31,7 +46,7 @@ const EventsList: React.FC<EventInfosProps> = ({ events }) => {
 
         const data = await response.json()
         if (data.length === 0) {
-          setStopInfiniteScroll((stopInfiniteScroll) => !stopInfiniteScroll)
+          setStopInfiniteScroll(true)
           return
         }
         setEventList((prevData) => [...prevData, ...data])
@@ -47,38 +62,32 @@ const EventsList: React.FC<EventInfosProps> = ({ events }) => {
       const { scrollTop, clientHeight, scrollHeight } =
         window.document.documentElement
       if (scrollTop + clientHeight === scrollHeight) {
-        setLoader((loader) => !loader)
+        setLoader(true)
         window.removeEventListener("scroll", handleScroll)
         !stopInfiniteScroll && fetchEvents(token)
       }
     }
 
     window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [currentPage])
 
+  const grouped = groupEventsByDate(eventList)
+
   return (
-    <>
-      {eventList.map((event: Event, index: number, events: Event[]) => (
-        <div className={s.superContainer} key={event.id + nanoid()}>
-          {typeof events[index - 1] === "undefined" ||
-          new Date(event.date).getDate() !==
-            new Date(events[index - 1].date).getDate() ? (
-            <p>
-              {new Date(event.date)
-                .toLocaleDateString("fr-fr", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })
-                .toUpperCase()}
-            </p>
-          ) : null}
-          <EventCard event={event} />
+    <div>
+      {grouped.map(([dateLabel, dateEvents]) => (
+        <div key={dateLabel} className={s.dateGroup}>
+          <div className={s.dateDivider}>{dateLabel.toUpperCase()}</div>
+          <div className={s.grid}>
+            {dateEvents.map((event: Event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </div>
         </div>
       ))}
       {!stopInfiniteScroll && loader && <Loader />}
-    </>
+    </div>
   )
 }
 
