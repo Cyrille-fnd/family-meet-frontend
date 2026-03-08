@@ -4,7 +4,7 @@
 }
 
 .superContainer p {
-    color: #838383;
+    color: var(--color-gray-muted);
     font-weight: bold;
-    margin-top: 45px;
+    margin-top: var(--space-7);
 }

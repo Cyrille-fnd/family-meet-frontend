@@ -20,17 +20,17 @@ export default function Error({
       }}
     >
       <h2>Une erreur est survenue</h2>
-      <p style={{ color: "#666" }}>
+      <p style={{ color: "var(--color-gray-secondary)" }}>
         {error.message || "Quelque chose s'est mal passé."}
       </p>
       <button
         onClick={reset}
         style={{
           padding: "0.5rem 1.5rem",
-          backgroundColor: "#000",
-          color: "#fff",
+          backgroundColor: "var(--color-black)",
+          color: "var(--color-white)",
           border: "none",
-          borderRadius: "4px",
+          borderRadius: "var(--radius-sm)",
           cursor: "pointer",
         }}
       >

@@ -1,5 +1,5 @@
 .container {
-    margin-top: 15px;
+    margin-top: var(--space-3);
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -12,26 +12,26 @@
 }
 
 .contentContainer h3 {
-    color: #bd77ec;
+    color: var(--color-primary);
     font-weight: bold;
-    margin-bottom: 10px;
-    font-size: large;
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-md);
 }
 
 .textContainer {
     display: flex;
     flex-direction: column;
-    margin-left: 15px;
+    margin-left: var(--space-3);
 }
 
 .dateContainer {
     display: flex;
     flex-direction: row;
-    margin-bottom: 10px;
+    margin-bottom: var(--space-2);
 }
 
 .dateContainer h6 {
-    margin-left: 5px;
+    margin-left: var(--space-1);
 }
 
 .locationContainer {
@@ -40,13 +40,13 @@
 }
 
 .locationContainer h6 {
-    margin-left: 5px;
+    margin-left: var(--space-1);
 }
 
 .participantContainer {
-    margin-top: 15px;
+    margin-top: var(--space-3);
 }
 
 .pictureContainer {
-    height: 30px;
+    height: var(--size-loader-sm);
 }

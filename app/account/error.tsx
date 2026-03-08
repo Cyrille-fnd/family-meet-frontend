@@ -20,7 +20,7 @@ export default function AccountError({
       }}
     >
       <h2>Impossible de charger le profil</h2>
-      <p style={{ color: "#666" }}>
+      <p style={{ color: "var(--color-gray-secondary)" }}>
         {error.message ||
           "Une erreur est survenue lors du chargement de votre profil."}
       </p>
@@ -28,10 +28,10 @@ export default function AccountError({
         onClick={reset}
         style={{
           padding: "0.5rem 1.5rem",
-          backgroundColor: "#000",
-          color: "#fff",
+          backgroundColor: "var(--color-black)",
+          color: "var(--color-white)",
           border: "none",
-          borderRadius: "4px",
+          borderRadius: "var(--radius-sm)",
           cursor: "pointer",
         }}
       >

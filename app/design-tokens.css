@@ -1,0 +1,77 @@
+/* ============================================================
+   DESIGN TOKENS — Family Meet
+   Source de vérité unique pour toutes les valeurs de design.
+   ============================================================ */
+
+:root {
+
+  /* ----------------------------------------------------------
+     Couleurs — Marque
+     ---------------------------------------------------------- */
+  --color-primary:        #bd77ec;
+  --color-primary-dark:   #ae5aea;
+
+  /* ----------------------------------------------------------
+     Couleurs — Neutres
+     ---------------------------------------------------------- */
+  --color-white:          #ffffff;
+  --color-black:          #000000;
+  --color-gray-muted:     #838383;
+  --color-gray-secondary: #666666;
+  --color-gray-hover:     #e6e6e6;
+  --color-gray-separator: #f1f1f1;
+  --color-gray-loader:    #f3f3f3;
+  --color-gray-border:    darkgrey;
+  --color-gray-light:     lightgray;
+
+  /* ----------------------------------------------------------
+     Couleurs — Sémantiques
+     ---------------------------------------------------------- */
+  --color-error:          crimson;
+  --color-overlay:        rgba(49, 49, 49, 0.8);
+
+  /* ----------------------------------------------------------
+     Espacements (base 5px)
+     ---------------------------------------------------------- */
+  --space-1:    5px;
+  --space-2:   10px;
+  --space-3:   15px;
+  --space-4:   20px;
+  --space-5:   25px;
+  --space-6:   40px;
+  --space-7:   45px;
+  --space-8:   50px;
+  --space-9:   60px;
+  --space-10: 100px;
+
+  /* ----------------------------------------------------------
+     Tailles — Composants
+     ---------------------------------------------------------- */
+  --size-input-height:    50px;
+  --size-loader-sm:       30px;
+  --size-loader-md:       50px;
+  --size-button-width:    20rem;
+  --size-cta-container:   30rem;
+  --size-side-menu-width: 265px;
+
+  /* ----------------------------------------------------------
+     Bordures arrondies
+     ---------------------------------------------------------- */
+  --radius-sm:   4px;
+  --radius-md:   15px;
+  --radius-lg:   25px;
+  --radius-pill: 100px;
+  --radius-full: 50%;
+
+  /* ----------------------------------------------------------
+     Typographie
+     ---------------------------------------------------------- */
+  --font-size-xs:            x-small;
+  --font-size-base:          1rem;
+  --font-size-md:            large;
+  --font-size-lg:            x-large;
+  --font-size-xl:            xx-large;
+  --font-size-2xl:           xxx-large;
+  --font-size-modal-trigger: 18px;
+
+}

@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: row;
     height: 100vh;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-left: var(--space-10);
+    margin-right: var(--space-10);
 }
 
 .container Separator {
@@ -19,16 +19,16 @@
 }
 
 .sideContainer Button {
-    margin-top: 20px;
+    margin-top: var(--space-4);
     width: 250px;
-    height: 50px;
+    height: var(--size-input-height);
 }
 
 .listContainer {
     display: flex;
     flex-direction: column;
     margin-top: 35px;
-    margin-left: 40px;
+    margin-left: var(--space-6);
     width: 60%;
 }
 

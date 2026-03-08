@@ -1,20 +1,20 @@
 .registerButton {
     border: 0;
     line-height: 2.5;
-    padding: 0 20px;
-    font-size: 1rem;
+    padding: 0 var(--space-4);
+    font-size: var(--font-size-base);
     font-weight: bold;
     text-align: center;
-    color: #fff;
-    border-radius: 100px;
-    background-color: #bd77ec;
+    color: var(--color-white);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-primary);
     background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
-    width: 20rem;
+    width: var(--size-button-width);
 
 }
 
 .registerButton:hover {
-    background-color: #ae5aea;
+    background-color: var(--color-primary-dark);
 }
 
 .registerButton:active {
@@ -26,20 +26,20 @@
 .loginButton {
     border: 0;
     line-height: 2.5;
-    padding: 0 20px;
-    font-size: 1rem;
+    padding: 0 var(--space-4);
+    font-size: var(--font-size-base);
     font-weight: bold;
     text-align: center;
-    color: #fff;
-    border-radius: 100px;
-    background-color: #bd77ec;
+    color: var(--color-white);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-primary);
     background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
-    width: 20rem;
+    width: var(--size-button-width);
 
 }
 
 .loginButton:hover {
-    background-color: #ae5aea;
+    background-color: var(--color-primary-dark);
 }
 
 .loginButton:active {
@@ -52,7 +52,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding-top: 50px;
+    padding-top: var(--space-8);
 }
 
 .blocksContainer {
@@ -77,33 +77,33 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 30rem;
+    width: var(--size-cta-container);
 }
 
 .title {
     font-family: "Verdana";
-    font-size: xxx-large;
+    font-size: var(--font-size-2xl);
     font-weight: bold;
-    margin-bottom: 50px;
+    margin-bottom: var(--space-8);
 }
 
 .registerText {
     font-family: "Verdana";
-    font-size: large;
+    font-size: var(--font-size-md);
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: var(--space-3);
 }
 
 .conditionsText {
-    font-size: x-small;
-    width: 20rem;
-    margin-top: 5px;
+    font-size: var(--font-size-xs);
+    width: var(--size-button-width);
+    margin-top: var(--space-1);
 }
 
 .loginText {
     font-family: "Verdana";
-    font-size: large;
+    font-size: var(--font-size-md);
     font-weight: bold;
-    margin-top: 60px;
-    margin-bottom: 15px;
+    margin-top: var(--space-9);
+    margin-bottom: var(--space-3);
 }

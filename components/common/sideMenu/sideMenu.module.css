@@ -1,27 +1,27 @@
 .container {
-    padding-right: 20px;
-    width: 265px;
+    padding-right: var(--space-4);
+    width: var(--size-side-menu-width);
 }
 
 .li {
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: large;
-    padding: 15px;
+    font-size: var(--font-size-md);
+    padding: var(--space-3);
 
 }
 
 .li:hover {
-    background-color: #E6E6E6;
-    border-radius: 25px;
+    background-color: var(--color-gray-hover);
+    border-radius: var(--radius-lg);
 }
 
 .textli {
-    margin-left: 20px;
+    margin-left: var(--space-4);
 }
 
 .boldTextli {
-    margin-left: 20px;
+    margin-left: var(--space-4);
     font-weight: bold;
 }
