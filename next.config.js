@@ -2,7 +2,7 @@
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 const { hostname, protocol } = apiUrl
   ? new URL(apiUrl)
-  : { hostname: 'localhost', protocol: 'https:' }
+  : { hostname: 'localhost', protocol: 'http:' }
 
 const nextConfig = {
     images: {
