@@ -20,7 +20,9 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const categoryColor =
     CATEGORY_COLORS[event.category] ?? "var(--color-primary)"
   const participantRatio =
-    event.participantMax > 0 ? event.guests.length / event.participantMax : 0
+    event.participantMax > 0
+      ? (event.guests?.length ?? 0) / event.participantMax
+      : 0
 
   return (
     <a href="#" className={s.card}>
@@ -90,7 +92,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         {/* Barre de participants */}
         <div className={s.participants}>
           <span className={s.participantCount}>
-            {event.guests.length}/{event.participantMax} participants
+            {event.guests?.length ?? 0}/{event.participantMax} participants
           </span>
           <div className={s.participantBar} aria-hidden="true">
             <div

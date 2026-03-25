@@ -44,10 +44,7 @@ const EventAddModal: React.FC<EventAddModalProps> = ({ isOpen, close }) => {
 
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_API_URL +
-          "/api/v2/users/" +
-          user?.id +
-          "/meets",
+        process.env.NEXT_PUBLIC_API_URL + "/api/v2/meets",
         {
           method: "POST",
           headers: {
@@ -55,12 +52,13 @@ const EventAddModal: React.FC<EventAddModalProps> = ({ isOpen, close }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            hostId: user?.id,
             title: formData.get("title"),
             description: formData.get("description"),
             location: formData.get("location"),
             date: formData.get("date"),
             category: formData.get("category"),
-            participantMax: formData.get("participantMax"),
+            maxGuests: parseInt(formData.get("participantMax") as string, 10),
           }),
         }
       )

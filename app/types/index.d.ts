@@ -19,6 +19,6 @@ interface Event {
   category: string
   createdAt: string
   participantMax: number
-  guests: User[]
+  guests?: User[]
   host: User
 }

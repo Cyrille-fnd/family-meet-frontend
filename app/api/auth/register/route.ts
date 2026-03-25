@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 
     ;(await cookies()).set("x-auth-token", token, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       path: "/",
       maxAge: 86400,

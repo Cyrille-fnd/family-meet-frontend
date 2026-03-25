@@ -17,9 +17,7 @@ export async function apiGet(
 
   try {
     const response = await fetch(API_BASE_URL + path, { headers })
-    const data = response.headers
-      .get("content-type")
-      ?.includes("application/json")
+    const data = response.headers.get("content-type")?.includes("json")
       ? await response.json()
       : null
     return { status: response.status, ok: response.ok, data }
@@ -38,9 +36,7 @@ export async function apiPost(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     })
-    const data = response.headers
-      .get("content-type")
-      ?.includes("application/json")
+    const data = response.headers.get("content-type")?.includes("json")
       ? await response.json()
       : null
     return { status: response.status, ok: response.ok, data }
