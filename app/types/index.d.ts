@@ -14,11 +14,12 @@ interface User {
 interface Event {
   id: string
   title: string
+  description?: string
   location: string
   date: string
   category: string
   createdAt: string
-  participantMax: number
-  guests?: User[]
+  maxGuests: number
+  participants?: User[]
   host: User
 }

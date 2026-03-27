@@ -4,6 +4,7 @@ import Image from "next/image"
 
 interface EventCardProps {
   event: Event
+  onSelect: (event: Event) => void
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -16,16 +17,16 @@ const CATEGORY_COLORS: Record<string, string> = {
   clubbing: "var(--color-cat-clubbing)",
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event }) => {
+const EventCard: React.FC<EventCardProps> = ({ event, onSelect }) => {
   const categoryColor =
     CATEGORY_COLORS[event.category] ?? "var(--color-primary)"
   const participantRatio =
-    event.participantMax > 0
-      ? (event.guests?.length ?? 0) / event.participantMax
+    event.maxGuests > 0
+      ? (event.participants?.length ?? 0) / event.maxGuests
       : 0
 
   return (
-    <a href="#" className={s.card}>
+    <button onClick={() => onSelect(event)} className={s.card}>
       {/* Image de couverture */}
       <div className={s.imageWrapper}>
         <Image
@@ -92,7 +93,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         {/* Barre de participants */}
         <div className={s.participants}>
           <span className={s.participantCount}>
-            {event.guests?.length ?? 0}/{event.participantMax} participants
+            {event.participants?.length ?? 0}/{event.maxGuests} participants
           </span>
           <div className={s.participantBar} aria-hidden="true">
             <div
@@ -105,7 +106,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
           </div>
         </div>
       </div>
-    </a>
+    </button>
   )
 }
 

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react"
 import s from "./eventsList.module.css"
 import EventCard from "../eventCard/eventCard"
+import EventDetailModal from "../eventDetailModal/eventDetailModal"
 import Loader from "@/components/common/loader/infiniteScroll/loader"
 import { useAuth } from "@/app/context/AuthContext"
+import { apiGet } from "@/app/services/apiClient"
 
 interface EventInfosProps {
   events: Event[]
@@ -24,7 +26,8 @@ function groupEventsByDate(events: Event[]): [string, Event[]][] {
 }
 
 const EventsList: React.FC<EventInfosProps> = ({ events }) => {
-  const { token } = useAuth()
+  const { token, user } = useAuth()
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
   const [eventList, setEventList] = useState(events)
   const [currentPage, setCurrentPage] = useState(2)
   const [stopInfiniteScroll, setStopInfiniteScroll] = useState(false)
@@ -72,16 +75,46 @@ const EventsList: React.FC<EventInfosProps> = ({ events }) => {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [currentPage])
 
+  const handleJoin = async (eventId: string) => {
+    // Mise à jour optimiste : ajoute immédiatement l'utilisateur courant aux guests
+    if (user) {
+      const addUser = (e: Event): Event =>
+        e.id === eventId
+          ? { ...e, participants: [...(e.participants ?? []), user] }
+          : e
+      setSelectedEvent((prev) => (prev ? addUser(prev) : prev))
+      setEventList((prev) => prev.map(addUser))
+    }
+
+    // Re-fetch et normalise participants → guests
+    const res = await apiGet(`/api/v2/meets/${eventId}`, token ?? undefined)
+    if (res.ok) {
+      const raw = res.data
+      const updated: Event = { ...raw, guests: raw.participants ?? raw.guests }
+      setSelectedEvent(updated)
+      setEventList((prev) => prev.map((e) => (e.id === eventId ? updated : e)))
+    }
+  }
+
   const grouped = groupEventsByDate(eventList)
 
   return (
     <div>
+      <EventDetailModal
+        event={selectedEvent}
+        onClose={() => setSelectedEvent(null)}
+        onJoin={handleJoin}
+      />
       {grouped.map(([dateLabel, dateEvents]) => (
         <div key={dateLabel} className={s.dateGroup}>
           <div className={s.dateDivider}>{dateLabel.toUpperCase()}</div>
           <div className={s.grid}>
             {dateEvents.map((event: Event) => (
-              <EventCard key={event.id} event={event} />
+              <EventCard
+                key={event.id}
+                event={event}
+                onSelect={setSelectedEvent}
+              />
             ))}
           </div>
         </div>
