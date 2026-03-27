@@ -47,7 +47,8 @@ const EventsList: React.FC<EventInfosProps> = ({ events }) => {
           }
         )
 
-        const data = await response.json()
+        const json = await response.json()
+        const data: Event[] = Array.isArray(json) ? json : []
         if (data.length === 0) {
           setStopInfiniteScroll(true)
           return
